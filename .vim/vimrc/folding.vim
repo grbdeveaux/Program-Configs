@@ -1,6 +1,3 @@
-"Set mapleader to "," instead of the default "\" as per convention
-let mapleader=","
-
 "let javaScript_fold=1         " JavaScript
 "let perl_fold=1               " Perl
 "let php_folding=1             " PHP

@@ -1,5 +1,10 @@
-" Remap hh to function as an escape key in insert mode.
-inoremap hh <Esc>
+" As much as possible, remap most frequent actions to leader commands.
+" And DO NOT make stupid, useless mappings like remapping ; to : or v to V or q:
+" to :q. Just learn to type better and stick to conventions.
+
+" Double leader escapes to normal mode from insert mode
+inoremap <S-CR> <Esc>
+" inoremap <S-Space><S-Space> <Esc>
 
 " Easier browsing of long lines
 noremap <Down> gj
@@ -49,15 +54,6 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-" Swap v and CTRL-V, because Block mode is more useful that Visual mode
-
-nnoremap    v   <C-V>
-nnoremap <C-V>     v
-
-vnoremap    v   <C-V>
-vnoremap <C-V>     v
-
-
 autocmd ColorScheme * highlight WhiteOnRed guibg=darkred ctermbg=white
 
 " This rewires n and N to do the highlighing...
@@ -90,8 +86,14 @@ vmap  <expr>  D        DVB_Duplicate()
 let g:DVB_TrimWS = 1
 
 
-
-
 "For listtrans.vim
 nmap  ;l   :call ListTrans_toggle_format()<CR>
 vmap  ;l   :call ListTrans_toggle_format('visual')<CR>
+
+" Automatically jump to end of text you copied or pasted
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+"12<Enter> goes to line 12. Enter goes to end of file.
+nnoremap <CR> G
