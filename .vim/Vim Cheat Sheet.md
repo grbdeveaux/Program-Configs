@@ -52,6 +52,12 @@
     ea - insert (append) at the end of the word
     <Esc> - exit insert mode
 
+## Moving in insert mode (vim, not gvim)
+
+    Move to next word using <shift> <right arrow key>
+
+    Move to previous word using <shift> <left arrow key>
+
 # Editing
 
     r - replace a single character
@@ -136,7 +142,7 @@
     :q - quit (fails if there are unsaved changes)
     :q! or ZQ - quit and throw away unsaved changes
 
-# Search and replace
+# [Search and replace](http://vim.wikia.com/wiki/Find_and_Replace)
 
     /pattern - search forward for pattern
     ?pattern - search backward for pattern
@@ -267,3 +273,8 @@ send command :!pdflatex main.tex && open -a preview filename.pdf to typeset late
 
 then use q: to browse command history
 use /!pdflatex to find the command again and press enter to run it
+
+
+:help i_CTRL_W gives the mapping for CTRL - W in insert mode
+:help n_CTRL_W does the same thing but in normal mode
+same thing for visual mode

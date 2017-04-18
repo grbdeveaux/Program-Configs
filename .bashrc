@@ -4,6 +4,9 @@
 source ~/.bashrc_aliases
 
 
+# Enable 256 Colors
+export TERM="xterm-256color"
+
 #######################################################
 # SOURCED ALIAS'S AND SCRIPTS
 #######################################################
@@ -444,28 +447,26 @@ function __setprompt
         PS1+="\n"
 
         # Date
-        PS1+="\[${DARKGRAY}\](\[${CYAN}\]\$(date +%a) $(date +%b-'%-m')" # Date
-        PS1+="${BLUE} $(date +'%-I':%M:%S%P)\[${DARKGRAY}\])-" # Time
+        PS1+="\[${CYAN}\]\$(date +%a) $(date +%b-'%-m')" # Date
+        PS1+="${BLUE} $(date +'%-I':%M:%S%P) " # Time
 
         # Jobs
-        PS1+="\[${DARKGRAY}\]:\[${MAGENTA}\]\j"
-
-        PS1+="\[${DARKGRAY}\])-"
+        PS1+="\[${MAGENTA}\]\j"
 
         # User and server
         local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
         local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
         if [ $SSH2_IP ] || [ $SSH_IP ] ; then
-                PS1+="(\[${RED}\]\u@\h"
+                PS1+=" \[${RED}\]\u@\h "
         else
-                PS1+="(\[${RED}\]\u"
+                PS1+=" \[${RED}\]\u "
         fi
 
         # Current directory
-        PS1+="\[${DARKGRAY}\]:\[${BROWN}\]\w\[${DARKGRAY}\])-"
+        PS1+="\[${BROWN}\]\w"
 
         # Number of files
-        PS1+="\[${GREEN}\]\$(/bin/ls -A -1 | /usr/bin/wc -l)\[${DARKGRAY}\])"
+        PS1+="\[${GREEN}\]\$(/bin/ls -A -1 | /usr/bin/wc -l)"
 
         # Skip to the next line
         PS1+="\n"
@@ -487,12 +488,9 @@ function __setprompt
 }
 PROMPT_COMMAND='__setprompt'
 
-# Enable 256 Colors
-export TERM="xterm-256color"
 
 # Enable 256 colors in tmux
 [[ $TERM == "screen" ]] && export -p TERM="screen-256color"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"         # This loads RVM into a shell session.
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion # This sets RVM shell completion
-
