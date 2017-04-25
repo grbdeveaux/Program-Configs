@@ -17,7 +17,7 @@ set laststatus=2                                    " Always show the status lin
 set linebreak                                       " Lines over textwidth will wrap
 set list                                            " Show trailing whitespace and tabs
 set listchars=trail:·,precedes:«,extends:»,tab:»\ 
-set mouse=                                          " Completely disable mouse support in vim
+set mouse=nvi                                       " Enable mouse in Normal, Visual, and Insert modes
 set number                                          " (nu) Always show current line's absolute number
 set numberwidth=5                                   " Have 5 number columns
 set printoptions=number:y                           " Printing

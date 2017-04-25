@@ -2,10 +2,6 @@
 " And DO NOT make stupid, useless mappings like remapping ; to : or v to V or q:
 " to :q. Just learn to type better and stick to conventions.
 
-" Double leader escapes to normal mode from insert mode
-inoremap <S-CR> <Esc>
-" inoremap <S-Space><S-Space> <Esc>
-
 " Easier browsing of long lines
 noremap <Down> gj
 noremap <Up> gk
@@ -94,6 +90,3 @@ vmap  ;l   :call ListTrans_toggle_format('visual')<CR>
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
-
-"12<Enter> goes to line 12. Enter goes to end of file.
-nnoremap <CR> G
