@@ -34,7 +34,7 @@ Plugin 'lervag/vimtex'
 
 Plugin 'scrooloose/nerdcommenter'
 
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 
 Plugin 'altercation/vim-colors-solarized'
 
