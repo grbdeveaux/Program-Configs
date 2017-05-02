@@ -34,7 +34,7 @@ Plugin 'lervag/vimtex'
 
 Plugin 'scrooloose/nerdcommenter'
 
-"Plugin 'valloric/youcompleteme'
+Plugin 'valloric/youcompleteme'
 
 Plugin 'altercation/vim-colors-solarized'
 
@@ -42,7 +42,7 @@ Plugin 'SirVer/ultisnips'   " Track the engine.
 
 Plugin 'honza/vim-snippets'
 
-Plugin 'vim-latex/vim-latex'
+" Plugin 'vim-latex/vim-latex' removed in favour of vimtex and ultisnips
 
 
 

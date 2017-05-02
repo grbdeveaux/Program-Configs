@@ -72,6 +72,7 @@ let g:syntastic_mode_map = { 'passive_filetypes': ['tex'] }
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<s-CR>"
+let g:UltiSnipsListSnippets="<c-CR>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
