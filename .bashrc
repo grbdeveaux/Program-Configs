@@ -494,3 +494,6 @@ PROMPT_COMMAND='__setprompt'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"         # This loads RVM into a shell session.
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion # This sets RVM shell completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
