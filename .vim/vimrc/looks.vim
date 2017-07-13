@@ -9,4 +9,7 @@ colorscheme solarized
 let macvim_hig_shift_movement = 1
 
 " Color the 81st column of wide lines
-match ErrorMsg '\%81v'
+"match ErrorMsg '\%81v'
+"call matchadd('ErrorMsg', '\%81v')
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)

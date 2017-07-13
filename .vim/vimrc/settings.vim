@@ -38,7 +38,6 @@ set wrap                                            " Lines longer than the widt
 set so=3                                            " Set scrolling offset
 set t_Co=256
 set guifont=Inconsolata-g\ for\ Powerline:h12
-
 " highlight trailing whitespace and spaces before a tab in red
 " have this highlighting not appear whilst you are typing in insert mode
 " have the highlighting of whitespace apply when you open new buffers

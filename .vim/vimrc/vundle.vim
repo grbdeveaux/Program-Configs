@@ -42,6 +42,10 @@ Plugin 'SirVer/ultisnips'   " Track the engine.
 
 Plugin 'honza/vim-snippets'
 
+Plugin 'godlygeek/tabular'
+
+Plugin 'plasticboy/vim-markdown'
+
 " Plugin 'vim-latex/vim-latex' removed in favour of vimtex and ultisnips
 
 
