@@ -48,8 +48,11 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Set vim as default git editor
+git config --global core.editor /usr/bin/vim
+
 # For vim mappings:
-	stty -ixon
+stty -ixon
 
 source ~/dotfiles/zsh/plugins/oh-my-zsh/lib/history.zsh
 source ~/dotfiles/zsh/plugins/oh-my-zsh/lib/key-bindings.zsh
