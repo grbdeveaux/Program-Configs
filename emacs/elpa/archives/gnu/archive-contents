@@ -306,6 +306,17 @@
 	     "kill & mark things easily" tar
 	     ((:keywords "killing" "convenience")
 	      (:url . "https://github.com/leoliu/easy-kill"))])
+ (ebdb .
+       [(0 2)
+	((emacs
+	  (25 1))
+	 (cl-lib
+	  (0 5))
+	 (seq
+	  (2 15)))
+	"Contact management package" tar
+	((:keywords "convenience" "mail")
+	 (:url . "https://github.com/girzel/ebdb"))])
  (ediprolog .
 	    [(1 2)
 	     nil "Emacs Does Interactive Prolog" single
@@ -697,7 +708,7 @@
 	     ((:url . "https://github.com/michael-heerdegen/on-screen.el")
 	      (:keywords "convenience"))])
  (org .
-      [(20170807)
+      [(20170814)
        nil "Outline-based notes management and organizer" tar nil])
  (org-edna .
 	   [(1 0 -3 1)
@@ -775,6 +786,16 @@
 		nil "Colorize color names in buffers" single
 		((:url . "http://elpa.gnu.org/packages/rainbow-mode.html")
 		 (:keywords "faces"))])
+ (rcirc-color .
+	      [(0 3)
+	       nil "color nicks" single
+	       ((:url . "http://elpa.gnu.org/packages/rcirc-color.html")
+		(:keywords "comm"))])
+ (rcirc-menu .
+	     [(1 0)
+	      nil "a menu of all your rcirc connections" single
+	      ((:url . "http://elpa.gnu.org/packages/rcirc-menu.html")
+	       (:keywords "comm"))])
  (realgud .
 	  [(1 4 4)
 	   ((load-relative
@@ -970,7 +991,7 @@
 		   nil "Unicode confusables table" tar
 		   ((:url . "http://elpa.gnu.org/packages/uni-confusables.html"))])
  (url-http-ntlm .
-		[(2 0 3)
+		[(2 0 4)
 		 ((cl-lib
 		   (0 5))
 		  (ntlm

@@ -101,7 +101,7 @@
 ;;YASnippet Compatibility
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "<S-tab>") 'yas-expand) ;Shift-Tab to expand yasnippet
 
 ;;AUCTEX
 (setq TeX-auto-save t)
