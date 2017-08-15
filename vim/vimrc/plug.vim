@@ -26,8 +26,6 @@ Plug 'lervag/vimtex'
 
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'valloric/youcompleteme'
-
 Plug 'altercation/vim-colors-solarized'
 
 Plug 'SirVer/ultisnips'   " Track the engine.
