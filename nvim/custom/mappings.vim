@@ -89,3 +89,9 @@ endif
 "Switching tab pages
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>
+
+"Alt arrow to resize vim pane to match ctrl arrow to resize tmux pane
+nnoremap <silent> <M-left> :vertical resize -1<cr>
+nnoremap <silent> <M-down> :resize +1<cr>
+nnoremap <silent> <M-up> :resize -1<cr>
+nnoremap <silent> <M-right> :vertical resize +1<cr>
