@@ -9,6 +9,7 @@ alias ebrc="nvim ~/.bashrc"
 alias updatebrc="source ~/.bashrc"
 alias vim="nvim"
 alias vi="nvim"
+alias v="nvim -p"
 
 # Others
 alias db="cd ~/Dropbox/"

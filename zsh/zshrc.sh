@@ -34,12 +34,6 @@ function cd()
 {
  builtin cd "$*" && ls -Gf
 }
-#Map vim to nvim, and always give option to open multiple files as tab pages. Navigate using Ctrl-Left/Right. :qa to quit all
-
-function vim()
-{
-    nvim -p "$*"
-}
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
