@@ -5,8 +5,10 @@ alias ezs="nvim ~/.zshrc"
 alias etm="nvim ~/.tmux.conf"
 alias etml="nvim ~/.tmux.conf.local"
 alias cdnv="cd ~/.config/nvim/"
-alias ebrc='nvim ~/.bashrc'
-alias updatebrc='source ~/.bashrc'
+alias ebrc="nvim ~/.bashrc"
+alias updatebrc="source ~/.bashrc"
+alias vim="nvim"
+alias vi="nvim"
 
 # Others
 alias db="cd ~/Dropbox/"

@@ -20,35 +20,6 @@ noremap <C-E> 5<C-E>
 " Make it easier to place (p) in insert mode
 inoremap ppp <Esc>pa
 
-
-" Make tab switching easier on macs
-if has("mac")
-    nmap <D-1> 1gt
-    nmap <D-2> 2gt
-    nmap <D-3> 3gt
-    nmap <D-4> 4gt
-    nmap <D-5> 5gt
-    nmap <D-6> 6gt
-    nmap <D-7> 7gt
-    nmap <D-8> 8gt
-    nmap <D-9> 9gt
-    imap <D-1> <ESC>1gt
-    imap <D-2> <ESC>2gt
-    imap <D-3> <ESC>3gt
-    imap <D-4> <ESC>4gt
-    imap <D-5> <ESC>5gt
-    imap <D-6> <ESC>6gt
-    imap <D-7> <ESC>7gt
-    imap <D-8> <ESC>8gt
-    imap <D-9> <ESC>9gt
-endif
-
-" Better window navigation
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
 autocmd ColorScheme * highlight WhiteOnRed guibg=darkred ctermbg=white
 
 " This rewires n and N to do the highlighing...
@@ -116,5 +87,5 @@ else
 endif
 
 "Switching tab pages
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <leader>h :tabprevious<CR>
+nnoremap <leader>l :tabnext<CR>
