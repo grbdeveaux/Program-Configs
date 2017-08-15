@@ -26,16 +26,20 @@ source $ZSH/oh-my-zsh.sh
 #So tmux supports powerline colors?
 export TERM="xterm-256color"
 
+
+#Functions
+	# Custom cd
+	c() {
+		builtin cd $1;
+		ls -Gf;
+	}
+	alias cd="c"
+
 #Map vim to nvim, and always give option to open multiple files as tab pages. Navigate using Ctrl-Left/Right. :qa to quit all
+
 function vim()
 {
     nvim -p"$*"
-}
-
-
-function cd()
-{
- builtin cd "$*" && ls -Gf
 }
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

@@ -5,6 +5,8 @@ alias ezs="nvim ~/.zshrc"
 alias etm="nvim ~/.tmux.conf"
 alias etml="nvim ~/.tmux.conf.local"
 alias cdnv="cd ~/.config/nvim/"
+alias ebrc='nvim ~/.bashrc'
+alias updatebrc='source ~/.bashrc'
 
 # Others
 alias db="cd ~/Dropbox/"
@@ -27,7 +29,6 @@ alias vis='nvim "+set si"'
 
 # Change directory aliases
 alias home='cd ~'
-alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -90,6 +91,3 @@ alias mkgz='tar -cvzf'
 alias untar='tar -xvf'
 alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
-
-alias ebrc='nvim ~/.bashrc'
-alias updatebrc='source ~/.bashrc'
