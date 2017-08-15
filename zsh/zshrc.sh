@@ -28,13 +28,12 @@ export TERM="xterm-256color"
 
 
 #Functions
-	# Custom cd
-	c() {
-		builtin cd $1;
-		ls -Gf;
-	}
-	alias cd="c"
 
+# Custom cd
+function cd()
+{
+ builtin cd "$*" && ls -Gf
+}
 #Map vim to nvim, and always give option to open multiple files as tab pages. Navigate using Ctrl-Left/Right. :qa to quit all
 
 function vim()

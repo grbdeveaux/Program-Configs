@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(-1) for non-login shells.
 
 # SOURCE ALIASES
-source ~/dotfiles/bash/.bashrc_aliases
+source ~/dotfiles/bash/bashrc_aliases.sh
 
 
 # Enable 256 Colors
