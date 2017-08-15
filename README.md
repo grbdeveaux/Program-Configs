@@ -1,6 +1,6 @@
 .bashrc (mostly taken from https://www.linuxquestions.org/questions/linux-general-1/ultimate-prompt-and-bashrc-file-4175518169-print/)
 
-zshrc and dotfiles structure taken from https://github.com/Parth/dotfiles
+zshrc, dotfiles structure, and tmux theming taken from https://github.com/Parth/dotfiles
 
 Symlinks:
 
