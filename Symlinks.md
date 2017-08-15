@@ -15,7 +15,7 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 ln -s ~/dotfiles/.emacs.d/ ~/.emacs.d
 
 # .bashrc:
-ln -s ~/dotfiles/bash/.bashrc ~/.bashrc
+ln -s ~/dotfiles/bash/bashrc.sh ~/.bashrc
 ln -s ~/dotfiles/bash/.bashrc_aliases ~/.bashrc_aliases
 
 # .zshrc:
