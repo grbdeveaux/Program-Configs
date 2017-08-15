@@ -90,3 +90,6 @@ vmap  ;l   :call ListTrans_toggle_format('visual')<CR>
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
+
+" LaTeXBox Latexmk compile to pdf
+nmap <silent> <leader>mk :Latexmk<CR>

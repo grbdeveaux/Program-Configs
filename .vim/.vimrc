@@ -1,5 +1,5 @@
 " Source Vundle
-source $HOME/.vim/vimrc/vundle.vim
+source $HOME/.vim/vimrc/plug.vim
 
 behave xterm
 syntax on
@@ -20,7 +20,6 @@ source $HOME/.vim/vimrc/plugin_configs.vim
 source $HOME/.vim/vimrc/settings.vim
 source $HOME/.vim/vimrc/spelling.vim
 
-
 " Source a local gvimrc if it exists
 if filereadable(expand("$HOME/.gvimrc.local"))
   source $HOME/.gvimrc.local
@@ -32,5 +31,12 @@ if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
+"Deoplete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" tern
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+colorscheme solarized
 
