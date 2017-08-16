@@ -119,4 +119,9 @@
 (setq linum-highlight-face "red")    ;I think this is getting overwritten by solarized.
 (setq linum-highlight-in-all-buffersp t)
 
+;;Shell
+(defun shell ()
+  (interactive)
+  (ansi-term "/bin/zsh"))
+
 (provide 'packconfig)

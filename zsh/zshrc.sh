@@ -5,10 +5,10 @@
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
 
 # Vars
-	HISTFILE=~/.zsh_history
-	SAVEHIST=1000
-	setopt inc_append_history # To save every command before it is executed
-	setopt share_history # setopt inc_append_history
+    HISTFILE=~/.zsh_history
+    SAVEHIST=1000
+    setopt inc_append_history # To save every command before it is executed
+    setopt share_history # setopt inc_append_history
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -40,12 +40,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
-# Open tmux if it's not already running
-if [ -z "$TMUX" ]
-then
-  tmux
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Set vim as default git editor
@@ -65,15 +59,22 @@ source ~/dotfiles/zsh/keybindings.sh
 # Fix for arrow-key searching
 # start typing + [Up-Arrow] - fuzzy find history forward
 if [[ "${terminfo[kcuu1]}" != "" ]]; then
-	autoload -U up-line-or-beginning-search
-	zle -N up-line-or-beginning-search
-	bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+    autoload -U up-line-or-beginning-search
+    zle -N up-line-or-beginning-search
+    bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
 fi
 # start typing + [Down-Arrow] - fuzzy find history backward
 if [[ "${terminfo[kcud1]}" != "" ]]; then
-	autoload -U down-line-or-beginning-search
-	zle -N down-line-or-beginning-search
-	bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+    autoload -U down-line-or-beginning-search
+    zle -N down-line-or-beginning-search
+    bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
 
 source ~/dotfiles/zsh/prompt.sh
+
+# Removed because emacs doesn't recognize the tmux command
+## Open tmux if it's not already running
+#if [ -z "$TMUX" ]
+#then
+#  tmux
+#fi
