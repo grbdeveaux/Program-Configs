@@ -1,6 +1,17 @@
-.bashrc (mostly taken from https://www.linuxquestions.org/questions/linux-general-1/ultimate-prompt-and-bashrc-file-4175518169-print/)
+.bashrc (mostly taken from
+https://www.linuxquestions.org/questions/linux-general-1/ultimate-prompt-and-bashrc-file-4175518169-print/)
 
-Tmux and zsh theming and some functionality taken from https://github.com/Parth/dotfiles. deploy is also from the same source but modified for better echoing and conditional backups.
+Tmux and zsh theming and some functionality taken from
+https://github.com/Parth/dotfiles. deploy is also from the same source but
+modified for better echoing and conditional backups. See
+https://www.youtube.com/watch?v=UgDz_9i2nwc for a demonstration of some of these
+features.
+
+Deploy has yet to be tested on a clean install. The backup and symlinking
+features have been tested.
+
+This setup is only for *nix machines. If you have a windows machine, get a new
+computer.
 
 # deploy:
 
@@ -43,5 +54,3 @@ To create or update a symlink:
 
 ## tmux
 `ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf`
-
-`ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local`

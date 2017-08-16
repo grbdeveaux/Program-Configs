@@ -90,6 +90,8 @@ check_for_software zsh
 echo
 check_for_software vim
 echo
+check_for_software neovim
+echo
 check_for_software tmux
 echo
 
