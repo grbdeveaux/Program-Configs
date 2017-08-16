@@ -10,10 +10,9 @@ features.
 Deploy has yet to be tested on a clean install. The backup and symlinking
 features have been tested.
 
-This setup is only for *nix machines. If you have a windows machine, get a new
-computer.
+This setup is only for *nix machines.
 
-# deploy:
+# deploy.sh
 
 Deploy is a more advanced script which does the following:
 1. Makes sure you have zsh, vim, and tmux installed
@@ -25,7 +24,7 @@ Deploy is a more advanced script which does the following:
 
 Run deploy using `sh ~/dotfiles/deploy`
 
-# Manually symlinking:
+# Manually symlinking
 
 To create a new symlink (will fail if symlink exists already):
 `ln -s /path/to/file /path/to/symlink`
