@@ -1,3 +1,4 @@
+
 # git
 function git_prepare() {
     if [ -n "$BUFFER" ];

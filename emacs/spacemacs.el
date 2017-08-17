@@ -362,8 +362,20 @@ mostly useful for variables that need to be set before packages are loaded. If
 you are unsure, you should try in setting them in `dotspacemacs/user-config'
 first."
 
+  ;;Identification
+  (setq user-full-name "Gabriel R. Deveaux")
+  (setq user-mail-address "grbdeveaux@gmail.com")
+
+  ;; No splash screen please ... jeez
+  (setq inhibit-startup-message t)
+
+  ;; Are we on a mac?
+  (setq is-mac (equal system-type 'darwin))
+
+  ;; Mute annoying comments about environment settings in zshrc and bashrc
   (setq exec-path-from-shell-check-startup-files nil)
 
+  ;; Not limit on message log size
   (setq-default message-log-max t)
   )
 

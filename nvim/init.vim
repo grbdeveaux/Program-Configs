@@ -1,8 +1,7 @@
 behave xterm
 syntax on
 
-"Set mapleader to space instead of the default "\" as per convention to be able
-"to use both hands.
+"Space as a leader is more ergonomic
 "let mapleader="\<Space>"
 
 " Source /vimrc files
@@ -47,29 +46,5 @@ call plug#end()
 
 colorscheme solarized
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-""neosnippet
-""imap <leader><TAB>  <Plug>(neosnippet_expand_or_jump)
-"smap <leader><TAB>  <Plug>(neosnippet_expand_or_jump)
-"xmap <leader><TAB>  <Plug>(neosnippet_expand_target)
-"inoremap <silent><expr> <leader><TAB> pumvisible() ? deoplete#mappings#close_popup()."\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
-"aut<Plug>(neosnippet_expand_or_jump) aut<Plug>(neosnippet_expand_or_jump)
-"
-"
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <leader><tab> <Plug>(neosnippet_expand_or_jump)
-smap <leader><tab> <Plug>(neosnippet_expand_or_jump)
-xmap <leader><tab> <Plug>(neosnippet_expand_target)
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/dotfiles/nvim/plugged/vin-snippets/snippets'
+"Make sure filetype specific settings are loaded last
+filetype plugin on

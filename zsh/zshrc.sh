@@ -32,8 +32,10 @@ export TERM="xterm-256color"
 # Custom cd
 function cd()
 {
- builtin cd "$*" && ls -Gf
+    builtin cd "$*" && ls -Gf
 }
+
+
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -72,7 +74,15 @@ fi
 
 source ~/dotfiles/zsh/prompt.sh
 
-# Removed because emacs doesn't recognize the tmux command
+
+# Jump to journal
+function jr()
+{
+    builtin cd ~/Dropbox/Journal/20$1 && ls -Gf
+}
+
+# Removed because emacs doesn't recognize the tmux command natively.
+# It's also a dumb feature.
 ## Open tmux if it's not already running
 #if [ -z "$TMUX" ]
 #then
