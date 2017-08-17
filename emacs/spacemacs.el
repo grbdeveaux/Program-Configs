@@ -2,10 +2,10 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+
 (defun dotspacemacs/layers ()
-  "Configuration Layers declaration.
-You should not put any user code in this function besides modifying the variable
-values."
+  "Configuration Layers declaration. You should not put any user code in this
+function besides modifying the variable values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
@@ -36,19 +36,28 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      auto-completion
      better-defaults
+     colors
      emacs-lisp
      git
+     helm
      markdown
      org
-     ;; (shell: :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     pandoc
+     ranger
+     ranger
+     shell
+     themes-megapack
+     typography
+     ;;vim-powerline
      spell-checking
      syntax-checking
      version-control
+     ruby
+     speed-reading
+     pdf-tools
+     finance
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -66,14 +75,19 @@ values."
    ;; `used-but-keep-unused' installs only the used packages but won't uninstall
    ;; them if they become unused. `all' installs *all* packages supported by
    ;; Spacemacs and never uninstall them. (default is `used-only')
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-only
+
+
+   ))
+
+
+
+
 
 (defun dotspacemacs/init ()
-  "Initialization function.
-This function is called at the very startup of Spacemacs initialization
-before layers configuration.
-You should not put any user code in there besides modifying the variable
-values."
+  "Initialization function. This function is called at the very startup of
+Spacemacs initialization before layers configuration. You should not put any
+user code in there besides modifying the variable values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -126,8 +140,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-night
-                         sanityinc-solarized-dark
+   dotspacemacs-themes '(sanityinc-solarized-dark
+                         sanityinc-tomorrow-night
                          spacemacs-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -137,7 +151,7 @@ values."
                                :size 12
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -209,7 +223,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.2
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -228,7 +242,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -260,7 +274,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -270,7 +284,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -291,7 +305,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 
@@ -305,7 +319,34 @@ values."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl auto-dictionary unfill smeargle orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete smooth-scrolling spinner adaptive-wrap ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async org-plus-contrib evil-unimpaired f s dash))))
+    (org-projectile org-category-capture org-present org-pomodoro alert log4e
+    gntp org-download htmlize gnuplot git-gutter-fringe+ git-gutter-fringe
+    fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct
+    flycheck-pos-tip pos-tip flycheck diff-hl auto-dictionary unfill smeargle
+    orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore
+    helm-company helm-c-yasnippet gitignore-mode gitconfig-mode
+    gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy
+    evil-magit magit magit-popup git-commit with-editor company-statistics
+    company auto-yasnippet yasnippet ac-ispell auto-complete smooth-scrolling
+    spinner adaptive-wrap ws-butler winum which-key volatile-highlights
+    vi-tilde-fringe uuidgen use-package toc-org spaceline powerline
+    restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox
+    org-bullets open-junk-file neotree move-text macrostep lorem-ipsum
+    linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo
+    highlight-parentheses highlight-numbers parent-mode highlight-indentation
+    hide-comnt help-fns+ helm-themes helm-swoop helm-projectile
+    helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds
+    helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator
+    fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar
+    evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist
+    evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state
+    smartparens evil-indent-plus evil-iedit-state iedit evil-exchange
+    evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree
+    eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word
+    column-enforce-mode clean-aindent-mode bind-map bind-key
+    auto-highlight-symbol auto-compile packed aggressive-indent ace-window
+    ace-link ace-jump-helm-line helm avy helm-core popup async org-plus-contrib
+    evil-unimpaired f s dash))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -315,23 +356,25 @@ values."
 ::**********************************************************************************
 
 (defun dotspacemacs/user-init ()
-  "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
+  "Initialization function for user code. It is called immediately after
+`dotspacemacs/init', before layer configuration executes. This function is
+mostly useful for variables that need to be set before packages are loaded. If
+you are unsure, you should try in setting them in `dotspacemacs/user-config'
+first."
+
+  (setq exec-path-from-shell-check-startup-files nil)
+
+  (setq-default message-log-max t)
   )
 
 ;; USER CONFIG
 
 (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+  "Configuration function for user code. This function is called at the very end
+of Spacemacs initialization after layers configuration. This is the place where
+most of your configurations should be done. Unless it is explicitly specified
+that a variable should be set before a package is loaded, you should place your
+code here."
 
   ;; scroll one line at a time (less "jumpy" than defaults)
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil))) ;; one line at a time
@@ -340,45 +383,16 @@ you should place your code here."
   (setq scroll-step 1) ;; keyboard scroll one line at a time
   (setq scroll-margin 5) ;; Start scrolling 5 lines from window edge
 
+  ;;Indentation Basics
+  (setq-default indent-tabs-mode nil) ;;All indentation will be made from spaces only
+  (setq-default tab-width 4) ; or any other preferred value
+  (setq indent-line-function 'insert-tab)
 
-  ;; auto-completion-layer configuration
-  (setq-default dotspacemacs-configuration-layers
-                '(
-                  (auto-completion :variables
-                                   auto-completion-return-key-behavior 'complete
-                                   auto-completion-tab-key-behavior 'cycle
-                                   auto-completion-complete-with-key-sequence nil
-                                   auto-completion-complete-with-key-sequence-delay 0.1
-                                   auto-completion-private-snippets-directory nil)
-                  ))
+  (add-hook 'spacemacs-buffer-mode-hook
+            (lambda ()
+              (set (make-local-variable 'mouse-1-click-follows-link) nil)))
 
+  ;;Layer configurations
+  '((auto-completion :variables
+                     auto-completion-enable-sort-by-usage t))
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
