@@ -38,6 +38,8 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 
+Plug 'Shougo/neocomplete.vim'
+
 call plug#end()            " required
 
 filetype plugin indent on    " required

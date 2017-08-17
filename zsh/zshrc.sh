@@ -6,7 +6,7 @@ export ZSH=/Users/grbdeveaux/.oh-my-zsh
 
 # Vars
     HISTFILE=~/.zsh_history
-    SAVEHIST=1000
+    SAVEHIST=100
     setopt inc_append_history # To save every command before it is executed
     setopt share_history # setopt inc_append_history
 

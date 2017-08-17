@@ -63,9 +63,8 @@
 
 ;;Whitespace Mode
 (setq whitespace-line-column 80)
-(setq whitespace-style '(face trailing)) ;;Face, space and hard space
+(setq whitespace-style '(face)) ;;Face, space and hard space
 
-(setq-default show-trailing-whitespace t) ;;Trailing whitespace
 (setq-default whitespace-display-mappings '((trailing 32 [?·])))
 
 (global-whitespace-mode 1)
@@ -119,8 +118,8 @@
 (setq linum-highlight-face "red")    ;I think this is getting overwritten by solarized.
 (setq linum-highlight-in-all-buffersp t)
 
-;;Shell
-(defun shell ()
+;;Term
+(defun term ()
   (interactive)
   (ansi-term "/bin/zsh"))
 

@@ -6,7 +6,7 @@ syntax on
 
 "Set mapleader to space instead of the default "\" as per convention to be able
 "to use both hands.
-let mapleader="\<Space>"
+"let mapleader="\<Space>"
 
 " Source /vimrc files
 source $HOME/.vim/vimrc/dragvisuals.vim

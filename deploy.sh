@@ -94,6 +94,8 @@ check_for_software neovim
 echo
 check_for_software tmux
 echo
+check_for_software emacs
+echo
 
 check_default_shell
 

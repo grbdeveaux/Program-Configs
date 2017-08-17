@@ -79,8 +79,5 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" You Complete Me
-
-" Remove <Tab> from the list of keys mapped by YCM.
-let g:ycm_key_list_select_completion = ['<Down>', '<S-TAB>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+" Deoplete
+let g:deoplete#enable_at_startup = 1

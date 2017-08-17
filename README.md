@@ -12,6 +12,15 @@ features have been tested.
 
 This setup is only for *nix machines.
 
+# Before deploying
+
+Spacemacs requires that aspell, ispell, and Source Code Pro fonts be installed to run properly. On macos, run the following commands for aspell and ispell:
+
+`brew install ispell --with-lang-en`
+`brew install aspell`
+
+Download the Source Code Pro fonts at the following link and add them to your font book: https://github.com/adobe-fonts/source-code-pro/downloads
+
 # deploy.sh
 
 Deploy is a more advanced script which does the following:
@@ -53,3 +62,12 @@ To create or update a symlink:
 
 ## tmux
 `ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf`
+
+# Configuring the Terminal
+Given the reliance on so many key bindings, it's important to make sure the
+terminal sends the correct keys.
+
+In iTerm on macos, ensure that backspace does NOT send ^H. Haven't found a fix
+for delete not working yet. Any key which sends an escape sequence likely will
+not work becaue escape enters vi mode which is more useful.
+

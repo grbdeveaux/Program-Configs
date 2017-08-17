@@ -93,3 +93,6 @@ nnoremap <silent> p p`]
 
 " LaTeXBox Latexmk compile to pdf
 nmap <silent> <leader>mk :Latexmk<CR>
+
+" <leader><bs> will close popup menu in insert mode
+imap <silent> <leader><bs> <c-e>
