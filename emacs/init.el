@@ -23,3 +23,5 @@
 (require 'functions)
 (require 'hydras)
 (require 'hooks) ;; Hooks
+
+;; Magit test
