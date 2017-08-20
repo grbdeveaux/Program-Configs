@@ -90,11 +90,7 @@ check_for_software zsh
 echo
 check_for_software vim
 echo
-check_for_software neovim
-echo
 check_for_software tmux
-echo
-check_for_software emacs
 echo
 
 check_default_shell
@@ -108,7 +104,6 @@ if echo "$answer" | grep -iq "^y" ;then
     echo "\nBacking up old files."
     make_backup ~/.bashrc
     make_backup ~/.config/nvim
-    make_backup ~/.emacs.d
     make_backup ~/.oh-my-zsh
     make_backup ~/.tmux.conf
     make_backup ~/.vim
@@ -128,7 +123,6 @@ if echo "$answer" | grep -iq "^y" ;then
     ln -s ~/dotfiles/vim ~/.vim
     ln -s ~/dotfiles/vim/.vimrc ~/.vimrc
     ln -s ~/dotfiles/nvim ~/.config/nvim
-    ln -s ~/dotfiles/emacs/ ~/.emacs.d
     ln -s ~/dotfiles/bash/bashrc.sh ~/.bashrc
     ln -s ~/dotfiles/zsh/zshrc_manager.sh ~/.zshrc
     ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf

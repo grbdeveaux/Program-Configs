@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: usepackage
-# key: upc
-# --
-
-\usepackage[$2]{$1}
-$0
