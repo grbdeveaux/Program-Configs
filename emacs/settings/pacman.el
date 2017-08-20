@@ -18,8 +18,8 @@
              )
 
 ;;Drag stuff
-(drag-stuff-global-mode 1)
-(drag-stuff-define-keys)
+;;(drag-stuff-global-mode 1)
+;;(drag-stuff-define-keys)
 
 ;;EVIL
 (require 'evil)

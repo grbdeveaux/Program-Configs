@@ -12,7 +12,8 @@
   ("m" hydra-move-text/body :exit t)
   ("SPC" nil "Exit Hydra"))
 
-(evil-define-key 'normal emacs-lisp-mode-map (kbd "SPC") 'hydra-main/body)
+;;(evil-define-key 'normal emacs-global-mode-map (kbd "SPC") 'hydra-main/body)
+(define-key evil-normal-state-map (kbd "SPC") 'hydra-main/body)
 (global-set-key (kbd "C-SPC") 'hydra-main/body) ; by example
 
 ;; ***** Applications *****
