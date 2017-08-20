@@ -5,6 +5,7 @@ syntax on
 "let mapleader="\<Space>"
 
 " Source /vimrc files
+source $HOME/.config/nvim/custom/dragvisuals.vim
 source $HOME/.config/nvim/custom/folding.vim
 source $HOME/.config/nvim/custom/listtrans.vim
 source $HOME/.config/nvim/custom/looks.vim
