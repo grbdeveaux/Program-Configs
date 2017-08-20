@@ -95,6 +95,3 @@ nnoremap <silent> <M-left> :vertical resize -1<cr>
 nnoremap <silent> <M-down> :resize +1<cr>
 nnoremap <silent> <M-up> :resize -1<cr>
 nnoremap <silent> <M-right> :vertical resize +1<cr>
-
-"<Leader><BS> will close popup menu without entering completion candidate
-imap <silent> <leader><BS> <C-e>

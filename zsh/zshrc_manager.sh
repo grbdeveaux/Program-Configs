@@ -12,3 +12,5 @@ source ~/dotfiles/zsh/zshrc_alias.sh
 #else
 #    echo "tmux not installed. Run ./deploy to configure dependencies"
 #fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

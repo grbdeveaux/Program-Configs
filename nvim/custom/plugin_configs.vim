@@ -5,14 +5,11 @@ let NERDTreeShowHidden=1            " Show hidden files in NERDTree by default, 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " Close Vim if NERDTree is the only window open
 
 
-
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-
 
 
 " vim-latex
@@ -21,15 +18,12 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'dvi,pdf'
 
 
-
-
 " air-line
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
 
 
 " unicode symbols
@@ -55,7 +49,6 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-
 "Inserted for Syntastic
 
 let g:syntastic_always_populate_loc_list = 1
@@ -64,18 +57,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'passive_filetypes': ['tex'] }
 
-
-
-
-" Ultisnips
-
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<s-CR>"
-let g:UltiSnipsListSnippets="<c-CR>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -83,16 +64,21 @@ let g:UltiSnipsEditSplit="vertical"
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" Ultisnips
+
+"" Trigger configuration. Do not use <tab> if you use
+"" https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<M-tab>"
+"let g:UltiSnipsListSnippets="<c-CR>"
+"let g:UltiSnipsJumpForwardTrigger=""
+"let g:UltiSnipsJumpBackwardTrigger=""
+"let g:UltiSnipsEditSplit="vertical"
+
+"" Neosnippet keymappings
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <leader><tab> <Plug>(neosnippet_expand_or_jump)
 smap <leader><tab> <Plug>(neosnippet_expand_or_jump)
 xmap <leader><tab> <Plug>(neosnippet_expand_target)
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/dotfiles/nvim/plugged/vin-snippets/snippets'

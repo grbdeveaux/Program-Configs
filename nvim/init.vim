@@ -4,17 +4,6 @@ syntax on
 "Space as a leader is more ergonomic
 "let mapleader="\<Space>"
 
-" Source /vimrc files
-source $HOME/.config/nvim/custom/dragvisuals.vim
-source $HOME/.config/nvim/custom/folding.vim
-source $HOME/.config/nvim/custom/listtrans.vim
-source $HOME/.config/nvim/custom/looks.vim
-source $HOME/.config/nvim/custom/mappings.vim
-source $HOME/.config/nvim/custom/misc.vim
-source $HOME/.config/nvim/custom/plugin_configs.vim
-source $HOME/.config/nvim/custom/settings.vim
-source $HOME/.config/nvim/custom/spelling.vim
-
 call plug#begin()
 
 Plug 'kien/ctrlp.vim'
@@ -36,6 +25,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neocomplete'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'neomake/neomake'
@@ -43,6 +34,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
+" Source /vimrc files
+source $HOME/.config/nvim/custom/dragvisuals.vim
+source $HOME/.config/nvim/custom/folding.vim
+source $HOME/.config/nvim/custom/listtrans.vim
+source $HOME/.config/nvim/custom/looks.vim
+source $HOME/.config/nvim/custom/mappings.vim
+source $HOME/.config/nvim/custom/misc.vim
+source $HOME/.config/nvim/custom/plugin_configs.vim
+source $HOME/.config/nvim/custom/settings.vim
+source $HOME/.config/nvim/custom/spelling.vim
 
 colorscheme solarized
 
