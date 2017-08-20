@@ -1,0 +1,3123 @@
+2017-08-14  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Yank ebdb-mu4e.el and ebdb-vm.el
+
+	Delete both files for now. Those libraries are not available by default,
+	and will cause compilation errors. Think of some other solution.
+
+2017-08-14  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't use eieio-oset-default
+
+	* ebdb.el (ebdb-db, ebdb-field-image): Turns out I was told this for a
+	 reason.
+	* ebdb-format.el (ebdb-formatter): Here too.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move the mail field sorting thing to a :before method
+
+	* ebdb.el (ebdb-record-insert-field): Having it run :after meant the
+	 change wasn't actually written to the database. A :before method
+	 seems to work fine.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix up record citation, bind a command in EBDB mode
+
+	* ebdb-com.el (ebdb-cite-records-ebdb): New interactive command in
+	 ebdb-mode for copying record citations to the kill ring.
+	 (ebdb-mode-map): Bind.
+	* ebdb.el (ebdb-cite-records): Accept a new INSERT argument, saying
+	 whether to insert the citation ring, or copy it to the kill ring.
+	 (ebdb-records-cite): Fix most of the methods. Can't use text-mode,
+	 since both html-mode and org-mode derive from that.
+	* ebdb.org: Document command.
+	* ebdb.texi: etc
+	* ebdb.info: etc
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Wrong slot names when reading addresses
+
+	* ebdb.el (ebdb-read): That's what you get for copy and pasting.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add internationalized version of ebdb-string for addresses
+
+	* ebdb-i18n.el (ebdb-string): This is important to have.
+
+	There's also an internationalized version of ebdb-parse for addresses in
+	there, but since there's no *non-internationalized* version of 
+	ebdb-parse for addresses, it's commented out for now.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bug in searching by database
+
+	* ebdb.el (ebdb-record-search): That's not how you use `member'.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use autoload cookies on defclass statements
+
+	* ebdb.el: There was no reason to be calling `eieio-defclass-autoload'
+	 myself.
+	* ebdb-gnus.el: add cookie
+	* ebdb-org.el: etc
+	* ebdb-pgp.el: etc
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove Brian Edmonds' code until copyright resolved
+
+	* ebdb-gnus.el: The Gnus split stuff. Hopefully a temporary removal.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New option ebdb-i18n-countries-pref-scripts
+
+	* ebdb-i18n.el (ebdb-i18n-countries-pref-scripts): New option, an
+	 alist that mirrors ebdb-i18n-countries, with country names in an
+	 alternate/preferred script. Meant to allow selection/display of
+	 country names in their native script.
+	 (ebdb-read): Use both variables for completing read.
+	* ebdb.el (ebdb-format-address-default): Use both variables for
+	 display.
+	 (ebdb-format-address): Use both variables for display.
+	* ebdb.org: Mention in manual.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add some country name "shorthands"
+
+	* ebdb-i18n.el (ebdb-i18n-countries): Country names were previously
+	 fully written out, leading to some silly address displays. Add
+	 elements to this alist permitting selection by country
+	 abbreviations. Abbreviated elements come before the fully-written
+	 elements, meaning that, while completing-read will accept either
+	 string, display will use the abbreviated string.
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Changes to manual and README, reflecting EBDB's move to ELPA
+
+	* README.org: This was sort of acting as a manual, before we had one.
+	* ebdb.org: Mention which packages are now separately loadable.
+	* ebdb.info: etc
+	* ebdb.texi: etc
+
+2017-08-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove libraries that will live in separate packages
+
+	Remove company-ebdb, counsel-ebdb, ebdb-chn, ebdb-gnorb, and helm-ebdb.
+	They will be installable separately from ELPA.
+
+	* ebdb-migrate.el (ebdb-migrate-from-bbdb): Move require statement for
+	 ebdb-gnorb, it won't be available by default.
+
+2017-08-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Prepare ebdb-gnorb to be extricated
+
+	Though who knows where it should actually go.
+
+	* ebdb.el: Remove the defclass autoload for gnorb-ebdb-field-messages
+	 from this file.
+	* ebdb-gnorb.el: Put it here, where it should (?) be correctly picked
+	 up by Elpa's autoload creation routines. Also, add correct library
+	 headers, and require bits of Gnorb.
+
+2017-08-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Compiler-inspired fixes version 443992
+
+	Getting as close to zero warnings as possible before going into ELPA
+
+	Mostly moving code around so it's defined in the right order, more 
+	defvars, declare-functions and autoloads, underscores on unused 
+	parameters, some deletion of unused/unreachable code. And I snuck in 
+	some edits to phone dialing (sorry!).
+
+2017-08-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Catching wrong error in internationalized version of name string
+
+	* ebdb-i18n.el (ebdb-string): Catch the cl-no-method parent error.
+	 Noticed this for the other methods, missed it here.
+
+2017-08-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Replace trailing whitespace in tests
+
+	* ebdb-test.el (ebdb-vcard-escape/unescape): That was supposed to be
+	 there! Need to remove `delete-trailing-whitespace' from
+	 `before-save-hook', for this file only.
+
+2017-08-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't require ebdb-chn from ebdb-i18n
+
+	* ebdb-i18n.el: ebdb-chn is going into a separate package.
+	* ebdb-chn.el: Instead, require ebdb-i8n from here.
+	* ebdb-i18n-test.el: Remove dependency on ebdb-chn, and the test that
+	 tested it. Where else can we put that?
+
+2017-08-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rename ebdb-message-header to ebdb-mua-message-header
+
+	Best to get some naming consistency now, before anyone really uses this.
+
+2017-08-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add new manual section about writing MUA integration
+
+	* ebdb.org (Writing Integration For New MUAs): New section.
+	* ebdb.texi: etc
+	* ebdb.info: etc
+
+2017-08-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move "Writing Internationalization Libraries" in manual
+
+	* ebdb.org (Writing Internationalization Libraries): Move it to the
+	 hacking section.
+	* ebdb.info: etc
+	* ebdb.texi: etc
+
+2017-08-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add phone field snarfing to the list of snarf routines
+
+	* ebdb-snarf.el (ebdb-snarf-routines): This regexp will likely need
+	 tuning.
+
+	Actually, it's becoming obvious that these regexps need to be kept 
+	somewhere else.
+
+2017-08-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Refactor snarfing
+
+	* ebdb-snarf.el (ebdb-snarf): Don't set up the temp buffer here. Also,
+	 add additional argument determining whether to display or return the
+	 records found.
+	 (ebdb-snarf-collect): Do the temp buffer setup here.
+	* ebdb-mua.el (ebdb-mua-snarf-article): Use new calling convention of
+	 ebdb-snarf to return and combine snarfed records from both the
+	 article body and the signature. (ebdb-mua-article-body,
+	 ebdb-mua-article-signature): The default return value of these two
+	 methods should be nil, not an empty string, that's unneccesarily
+	 complicated.
+	* ebdb-test.el (ebdb-snarf-mail-and-name): Alter test accordingly.
+
+2017-08-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Bug in 851c0f1, signature snarfing
+
+	* ebdb-mua.el (ebdb-mua-snarf-article): Changed the method name and
+	 neglected to change it here, too.
+
+2017-08-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Internationalized ebdb-parse for phones wasn't doing enough setup
+
+	* ebdb-i18n.el (ebdb-parse): This method needs to remove the country
+	 code from the string, and set it in the slots. I hadn't run into
+	 this before because the read method works correctly, and there's
+	 nowhere in the code where the internationalized parser is given a
+	 raw phone string. Adding phones to the snarfing routines revealed
+	 the bug.
+
+2017-08-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	File header changes preparatory to breaking off separate libraries
+
+	* company-ebdb.el:
+	* counsel-ebdb.el:
+	* helm-ebdb.el: These three completion libraries will become separate
+	 single-file packages.
+	* ebdb-chn.el: This country-specific library will become a separate
+	 package, and be renamed to ebdb-i18n-chn.el, which will be the
+	 naming convention for future internationalization libraries.
+	* ebdb.el: Include Emacs version number dependency.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Prefix arg to article snarfing only snarfs signature
+
+	* ebdb-mua.el (ebdb-mua-snarf-article): Accept a prefix arg. If
+	 present, only snarf the signature, not the article body.
+	* ebdb.org: Mention in manual.
+	* ebdb.texi: etc
+	* ebdb.info: Actually, I forgot to re-produce the manual last time I
+	 made changes.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fall back to human readable name of labeled fields
+
+	* ebdb.el (eieio-object-name-string): Override this method, which
+	 originally would have printed the symbol name of the field class if
+	 the instance had no label. Instead, print the human readable name of
+	 the field class.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Also snarf URL fields
+
+	* ebdb-snarf.el (ebdb-snarf-routines): Add a new element to this list.
+	* ebdb.org: Mention in docs.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rework snarf collection
+
+	* ebdb-snarf.el (ebdb-snarf-collect): Completely re-write this
+	 function, it now searches for "clusters" of field information, and
+	 creates a bundle from each cluster. This should be a significant
+	 improvement over the previous implementation, modulo bugs. This
+	 function is no longer responsible for going to point-min, it only
+	 moves forward.
+	 (ebdb-snarf): This function goes to point min.
+	* ebdb-test.el (ebdb-snarf-mail-and-name): Adjust tests. Snarfing will
+	 no longer look over multiple lines if we're not at bol. Also, as
+	 this test doesn't call ebdb-snarf, we need to go to point-min
+	 ourselves.
+	* ebdb.org: Documentation tweak.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove stray code
+
+	* ebdb-com.el (ebdb-subint): Delete this function, it wasn't used
+	 anywhere.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Create ebdb-parse method for URL fields
+
+	* ebdb.el (ebdb-url-valid-schemes): First, a customization option for
+	 valid URL schemes.
+	 (ebdb-parse): Then a parse method. Check that the scheme is valid,
+	 raise 'ebdb-unparseable otherwise.
+
+2017-08-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Half-implement signature snarfing for MUAs
+
+	* ebdb-com.el: Remove commented-out customization option regarding
+	 signature snarfing. This would have implemented automated snarfing,
+	 which would have been a nightmare. Only snarf on user command.
+	* ebdb-mua.el (ebdb-mua-get-signature): New generic method for
+	 returning the text of a message signature.
+	 (ebdb-mua-snarf-article): Add signature snarfing as a part of this
+	 function. Perhaps we'll want a separate function later?
+	* ebdb-gnus.el (ebdb-mua-get-signature): Implement for Gnus, figure
+	 out the others later.
+
+2017-08-04  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	When merging organization records, possibly merge role fields
+
+	* ebdb.el (ebdb-merge): When two organizations are merged, it's
+	 reasonable to expect that role fields pointing to both orgs should
+	 be preserved and moved to point to the "new" org. Ask the user if
+	 that's the case.
+
+2017-08-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention role fields in the manual
+
+	* ebdb.org(Role Fields): New manual section.
+	* ebdb.info: etc
+	* ebdb.texi: etc
+
+2017-08-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't need so much docstring on ebdb-mode
+
+	* ebdb-com.el (ebdb-mode): Most of this information is now in the
+	 manual, and dumping the mode map is enough for the rest of it.
+
+2017-08-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Set local variable correctly in manual
+
+	* ebdb.org: Much easier to set at top of file (and previous version
+	 was wrong, anyway).
+
+2017-08-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add instructions for writing i18n libraries to manual
+
+	* ebdb.org (Writing Internationalization Libraries): New section.
+	* ebdb.info: etc
+	* ebdb.texi: etc
+
+2017-07-31  tumashu  <tumashu@163.com>
+
+	Let ebdb-complete can grab string which similar "guix-devel" (#46)
+
+	
+
+2017-07-30  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add test for with-record-edits macro
+
+	* ebdb-test.el (ebdb-test-with-record-edits): I'm least confident
+	 about this macro.
+
+2017-07-30  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add test for multiple databases plus read only
+
+	* ebdb-test.el (ebdb-load-record-multiple-databases-error): Editing a
+	 record should raise an error if one of its databases is read only.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Basic finished version of manual
+
+	Fixes #8
+
+	* ebdb.org: Mainly added more stuff about EBDB buffers and ebdb-mode.
+	* ebdb.texi:
+	* ebdb.info: Produce new manual.
+	* ebdb-com.el (ebdb-info): This command can now be used correctly.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Check db editable before reading new record
+
+	* ebdb-com.el (ebdb-create-record): Move the ebdb-db-editable check
+	 before record reading, don't make the user enter a whole record and
+	 then find out afterwards it isn't going to work.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	When inserting fields, read the field but insert a clone
+
+	Fixes #43
+
+	* ebdb-com.el (ebdb-insert-field): Read field, then insert clone. This
+	 ensures that, when inserting a field into multiple records, each
+	 record gets its own copy that it can manipulate itself, if it needs
+	 to.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bug in reading mail alias fields
+
+	* ebdb.el (ebdb-read): Why was there a "car" in there?
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bug in ebdb-char-fold-search logic
+
+	* ebdb.el (ebdb-search): Parenthesis has to go all the way around,
+	 smart guy.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mark arg as used in call to ebdb-with-record-edits
+
+	* ebdb-com.el (ebdb-edit-field-customize): Arg is being used in macro
+	 expansion.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix buffer modification call
+
+	* ebdb-com.el (ebdb-create-record): Same error I made on the other
+	 end, un-setting the modification flag.
+
+2017-07-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix propertize call when formatting field values
+
+	* ebdb-com.el (ebdb-fmt-field): Looks like this was copy-paste bug
+	 propagation.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Small tweaks to README
+
+	* README.org: Various small edits.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention record citing in the manual
+
+	* ebdb.org (Citing Record): New section.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention Org integration in the manual
+
+	* ebdb.org (Org Integration): Links and all that.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention support for completion frameworks in manual
+
+	* ebdb.org (Completion): There's not a lot to say.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention all supported MUAs in manual
+
+	* ebdb.org: And sneakily fix a few errors.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Start tracking manual texi and info files
+
+	* ebdb.info:
+	* ebdb.texi: Track new files
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention vCard export support in manual
+
+	* ebdb.org (vCard Support): Mention what we've got, such as it is.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention mail aliases in the manual
+
+	* ebdb.org (Mail Aliases): New section.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mention internationalization library in the manual
+
+	* ebdb.org (Internationalization): New section.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Expand manual, and edit for use of ox-texinfo-plus
+
+	* ebdb.org: The ox-texinfo-plus package has some nice tweaks for
+	 writing Emacs manuals.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Modify ebdb-mua-yank-cc to yank from any EBDB buffer
+
+	* ebdb-mua.el (ebdb-mua-yank-cc): Otherwise what's the point, really?
+	 If it only yanks from the EBDB buffer associated with the message
+	 composition buffer, all message recipients are already in the EBDB
+	 buffer.
+
+2017-07-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move, rename and bind ebdb-mail-yank
+
+	* ebdb-com.el: Remove ebdb-mail-yank from this file.
+	* ebdb-mua.el (ebdb-mua-yank-cc): Put it here, and give it a new name.
+
+2017-07-28  tumashu  <tumashu@163.com>
+
+	require pyim, for chinese-pyim has been renamed to pyim (#45)
+
+	
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fairly embarrassing oversight in setting ebdb buffers modified
+
+	* ebdb-com.el (ebdb-with-record-edits): We'll need to actually use the
+	 buffer...
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Large pile of manual, docstring, and comment edits
+
+	* ebdb-mua.el: Some new information, but mostly typo and reformatting
+	 edits.
+	* ebdb.org: Mostly new information regarding MUA changes.  Also, start
+	 reformatting for the use of ox-texinfo-plus, though a future commit
+	 will focus on that.
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Create specific keymap for using EBDB in MUAs
+
+	* ebdb-mua.el (ebdb-mua-keymap): New keymap, to be bound to a certain
+	 key (aiming for ";" in all cases) in the MUA. This means everything
+	 is now two keystrokes, but there's a lot more room for growth.
+	* ebdb-rmail.el: Bind in rmail.
+	* ebdb-mu4e.el: Bind in mu4e.
+	* ebdb-mhe.el: Bind in mhe.
+	* ebdb-gnus.el: Bind in Gnus.
+	* ebdb-message.el: Do *not* bind in either mail-mode or message-mode.
+	 The keymap as it stands is pretty tied to message-reading MUAs.
+	 Consider something separate for message-sending MUAs.
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify MUA record editing
+
+	* ebdb-mua.el (ebdb-mua-edit-field): Remove both option and command of
+	 this name.
+	 (ebdb-mua-edit-field-sender, ebdb-mua-edit-field-recipients): Remove
+	 both commands.
+	 (ebdb-mua-edit-sender-notes): New, simpler command that only edits
+	 the notes field of the message sender.	 All other edits should be
+	 done with auto-update, message snarfing, or ebdb-mua-in-ebdb-buffer.
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New function ebdb-mua-in-ebdb-buffer
+
+	* ebdb-mua.el (ebdb-mua-in-ebdb-buffer): New function, a bit
+	 experimental.	Call it to temporarily move point to the pop-up EBDB
+	 buffer associated with the current MUA.  Re-wires "q" to return to
+	 the previous window configuration.  Don't document or bind for now.
+
+2017-07-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Combine with previous commit
+
+	* ebdb-mua.el (ebdb-mua-annotate-field-interactive,
+	 ebdb-mua-annotate-sender, ebdb-mua-annotate-recipients,
+	 ebdb-annotate-field): These functions/options should have been
+	 deleted as part of the last commit.
+
+2017-07-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Drop the whole auto-notes thing
+
+	* ebdb-mua.el (ebdb-annotate-record, ebdb-auto-notes): Remove these
+	 functions, the whole thing was too convoluted.	 There was no way to
+	 only run the rules once, and why would you want to run them multiple
+	 times?
+
+2017-07-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Reinstate the notice record hook, and move notice-record method
+
+	* ebdb-mua.el (ebdb-notice-record-hook): I'd previously deleted this,
+	 now put it back.
+	 (ebdb-notice-record): Move this generic and method into this file,
+	 it belongs here.  Call the notice-record-hook as part of the
+	 notice-record method.
+	* ebdb.el: Remove ebdb-notice-record from this file.
+
+2017-07-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Pop up empty *EBDB* buffer for users with no records
+
+	* ebdb-com.el (ebdb-search-display): Calling `ebdb' usually doesn't
+	 open a buffer if no results are found. Users starting out with EBDB
+	 won't have any records at all. In that case, pop up an empty buffer.
+	* ebdb.org: Document.
+
+2017-07-21  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Split ebdb-org-open into two functions
+
+	* ebdb-org.el (ebdb-org-retrieve): New function only parses an Org
+	 link and retrieves the matching records (doesn't display them).
+	 (ebdb-org-open): This function now only calls `ebdb-org-retrieve'
+	 and displays the results.
+
+2017-06-27  tumashu  <tumashu@163.com>
+
+	ebdb-complete: Add mail-mode support (#44)
+
+	
+
+2017-06-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Adjust indentation of multi-line field values
+
+	* ebdb-com.el (ebdb-fmt-record-body): I'm still pretty skeptical about
+	 this -- I don't know why it works this way, and still wish I could
+	 just use `fill-paragraph' correctly.
+
+2017-06-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rework ebdb-mail-yank
+
+	* ebdb-com.el (ebdb-mail-yank): It still isn't bound to a key, but now
+	 it works in both message-mode and mail-mode.
+
+2017-06-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mark EBDB buffers as modified after edits
+
+	* ebdb-com.el (ebdb-with-record-edits, ebdb-create-record): Mark
+	 all *EBDB* buffers as modified.
+
+2017-06-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use ebdb-with-record-edits in more places
+
+	* ebdb-com.el (ebdb-edit-field, ebdb-delete-field-or-record): I
+	 believe ebdb-create-record is the only editing command that doesn't
+	 use this macro now.
+
+2017-05-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mark EBDB buffers as unmodified after save
+
+	* ebdb.el (ebdb-save): After ebdb-save, all *EBDB* buffers should be
+	 "unmodified".
+
+2017-04-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fixes to record loading
+
+	* ebdb.el (ebdb-db-add-record): Don't call `ebdb-db-load-records'
+	 here. It seemed like a neat way to re-use the loading procedure, but
+	 the uuid check will raise an error with the record's own self as a
+	 duplicate. There's no need to use something that deep anyway, this
+	 method should be kept straightforward. This fixes moving/copying
+	 records between databases.
+	 (ebdb-delete-record, ebdb-init-record): Clean up code in here
+	 somewhat.
+	* ebdb-test.el (ebdb-test-database-2): Add a second test database.
+	 (ebdb-test-with-database): Fix dumb macro mistake.
+	 (ebdb-load-record-multiple-databases): Test multiple
+
+2017-04-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change type of anniversary field dates
+
+	* ebdb.el (ebdb-field-anniversary): Used to be absolute number of
+	 days, now store lists of month, day, year.  The whole point is to
+	 allow unknown years.
+	 (initialize-instance): "Migrate" values from previous type.
+	 (ebdb-read, ebdb-string, ebdb-field-anniversary-calendar,
+	 ebdb-field-anniversary-agenda, ebdb-field-anniv-diary-entry): Fix
+	 everything accordingly.
+	* ebdb-migrate.el (ebdb-migrate-vector-to-class): Change migration
+	 routine accordingly.
+
+2017-03-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Allow custom hash predicates
+
+	* ebdb.el (ebdb-hash-extra-predicates): New option allowing users to
+	 create their own hash predicates. This allows them to add arbitrary
+	 hash entries to the ebdb-hashtable, and filter hash lookup results
+	 with their own predicates.
+	 (ebdb-hash-p): Check new option.
+
+2017-03-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bug in MUA record creation
+
+	* ebdb-mua.el (ebdb-annotate-message): Mail cannot be given as a list,
+	 this was left over from a (setf (slot-value...
+
+2017-03-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix docstring of ebdb-create-record
+
+	* ebdb-com.el (ebdb-create-record): Extended create is done with a
+	 separate command, not with the prefix argument.
+
+2017-03-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Temporarily abandon having record-change-name accept strings
+
+	* ebdb.el (ebdb-record-change-name): I've found no way to actually
+	 make this work. I can't switch from a string argument to a
+	 ebdb-field-name argument. There has to be some solution to this, but
+	 I'm giving up for now.
+	* ebdb-mua.el (ebdb-annotate-message): Alter function to check for
+	 name class explicity.
+
+2017-03-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Put a load protection in ebdb-mua-update-records
+
+	* ebdb-mua.el (ebdb-mua-update-records): This is one of the points we
+	 might hit where ebdb hasn't been loaded yet.
+
+2017-03-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Protect against no current record when redisplaying
+
+	* ebdb-com.el (ebdb-redisplay-records): Code originally called
+	 `ebdb-current-record' with no prior checks, this could easily throw
+	 an error.
+
+2017-03-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change arg order of record-insert|delete-field, refactor
+
+	* ebdb.el (ebdb-record-insert-field, ebdb-record-delete-field): The
+	 slot argument now comes last, and is optional. Also, add
+	 defgenerics.
+	* ebdb-snarf.el (ebdb-snarf-query): Remove field slot queries, and
+	 handle new arg order (mostly dropping the slot argument).
+	* ebdb-mua.el (ebdb-mua-edit-field): Ditto.
+	* ebdb-com.el (ebdb-delete-records, ebdb-edit-field): Ditto.
+	* ebdb-test.el: New tests for adding/deleting/changing fields.
+
+2017-03-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Record-insert|delete-field methods can find their own slots
+
+	* ebdb.el (ebdb-record-insert-field, ebdb-record-delete-field):
+	 Provide implementation of these methods where slot is nil, they find
+	 the slot, and then pass off to more specific methods.
+
+	Step one in refactoring ebdb-record-field-slot-query inside of 
+	ebdb-record-insert|delete-field.
+
+2017-03-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change ebdb-record-change-name to accept strings
+
+	The fact that person and organization record types take different name 
+	classes is still causing a little difficulty. We address this by 
+	allowing ebdb-record-change-name to accept a string argument, meaning 
+	that the parsing can happen within the record-class-specific method. 
+	That should remove most of the leaky abstractions from various points in
+	the code.
+
+	* ebdb.el (ebdb-record-change-name): Provide a generic, for eldoc
+	 purposes. Provide person- and organization-specific methods that can
+	 accept strings. Take care of business inside those methods. Also,
+	 only set the 'name-string cache slot within the base method.
+	* ebdb-com.el (ebdb-edit-field): Adjust for new system -- it's
+	 necessary to read the new name here: do it with the right class, and
+	 the old instance as default.
+	* ebdb-mua.el (ebdb-annotate-message): Destroy "name-slot" with
+	 maximum prejudice.
+
+2017-03-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Get notice routine working
+
+	* ebdb.el (ebdb-notice-record): Provide generic and method for
+	 ebdb-notice-record.
+	 (ebdb-notice-field): Provide generic, and change calling signature
+	 to remove the message-headers argument. There's no
+	 immediately-convenient way to pass the headers in to the method.
+	* ebdb-mua.el (ebdb-update-records): Put the ebdb-notice-record call
+	 in the right place.
+	* ebdb-gnorb.el (ebdb-fmt-field, ebdb-notice-field): Fix these two
+	 methods to work with the new noticing routine.
+	 (gnorb-ebdb-collect-by-thread): Allow for collecting/opening by
+	 thread.
+	 (ebdb-gnorb-lapsed-days): Helper function, stolen from
+	 article-lapsed-days.
+
+2017-03-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change databases' buffer-char slot into actual character
+
+	* ebdb.el (ebdb-db): Should be stored as an actual character.
+	* ebdb-com.el (ebdb-record-db-char-string): Display as such.
+
+2017-03-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fill out functionality of gnorb messages field
+
+	Though the "notice" plumbing isn't actually hooked up yet! Actually this
+	should be disconnected from Gnorb altogether (in fact it already is,
+	there's no use of Gnorb in this file at all), and the field should be
+	made capable of collecting and following links from any MUA, not just
+	Gnus. We'll get there.
+
+	* ebdb-gnorb.el (gnorb-ebdb): New group.
+	 (gnorb-ebdb-collect-N-messages, gnorb-ebdb-define-recent,
+	 gnorb-ebdb-message-format): Customization options all stolen from
+	 Gnorb.
+	 (gnorb-ebdb-follow-link): New function for following a link.
+	 (ebdb-fmt-field, ebdb-string): Functions for formatting field
+	 contents.
+	 (ebdb-notice-field): Notice field method for storing links.
+
+2017-03-14  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Split out ebdb-notice-record and ebdb-notice-field methods
+
+	* ebdb.el: (ebdb-notice-field, ebdb-notice-record): Not that either of
+	 them actually do anything yet.
+
+2017-03-12  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New method: ebdb-db-load-records
+
+	* ebdb.el (ebdb-db-load-records): Separate out the ebdb-db-load and
+	 ebdb-db-load-records processes, so that we can call
+	 ebdb-db-load-records separately, even after db is loaded.
+	 (ebdb-db-add-record): This method now uses ebdb-db-load-records on
+	 newly-added records. This allows our uuid checking and merging
+	 process to kick in when adding records, not only when loading the
+	 database.
+
+2017-03-12  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't wrap cl-print-object in eval-when-compile
+
+	* ebdb.el (cl-print-object): Probably unnecessary, and the compiler
+	 didn't like it.
+
+2017-03-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Code tweaks and re-arrangments
+
+	Inspired by the compiler, and tumashu's bug report. Make sure all 
+	functions and variables are required, autoloaded, defvar'd, or otherwise
+	available.
+
+	Fixes #41.
+
+	* ebdb.el (ebdb-canonicalize-mail-function,
+	 ebdb-message-clean-name-function): Biggest change is that these two
+	 customization options have been moved here from ebdb-mua.el, and
+	 switched to the 'ebdb-utilities defgroup. They aren't MUA
+	 specific (we should use them in snarfing, for one thing), and the
+	 functions they point to by default are already in ebdb.el.
+
+2017-03-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Require ebdb-format in ebdb-vcard
+
+	Fixes #40
+
+	* ebdb-vcard.el: Not sure how this never bit me before.
+
+2017-03-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Migration should guard against unparseable emails
+
+	* ebdb-migrate.el (ebdb-migrate-vector-to-class): Make sure we
+	 actually found an email address in there.
+
+2017-03-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix record citation
+
+	* ebdb.el (ebdb-records-cite): First, rename from
+	 ebdb-records-cite-mail. Interactive command is now called
+	 `ebdb-cite-records', and underlying methods called
+	 `ebdb-records-cite'. Also, fix bug in `ebdb-records-cite'.
+
+2017-03-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add counsel-ebdb.el
+
+	* counsel-ebdb.el: For completing using the counsel/ivy interface.
+	 Command name is also `counsel-ebdb'. Eventually these will get split
+	 off into different packages.
+
+2017-03-09  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change newline approach in vCard handling
+
+	* ebdb-vcard.el (ebdb-formatter-vcard): Instead of actually sticking
+	 CRLFs in the code everywhere, do it right: use Emacs' internal
+	 conventions, and only convert to 'utf-8-dos at the last minute, when
+	 saving to file. Go back through all code and revert to using plain
+	 \n. The formatting routine is already prepared to set the file
+	 coding system correctly.
+	 (ebdb-formatter-vcard-40): Don't override coding-system here.
+	 (ebdb-vcard-escape): Fix escaping.
+	* ebdb-test.el (ebdb-vcard-escape/unescape): I had written a broken
+	 test to test broken code. Fix the test.
+	 (ebdb-vcard-fold/unfold): Also get literal CRLFs out of here, back
+	 to plain \n.
+
+	Lastly, after this, we need to find the right spot to run the 
+	folding/unfolding routine.
+
+2017-03-09  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New functions for folding/unfolding long vCard lines
+
+	* ebdb-vcard.el (ebdb-vcard-fold-lines, ebdb-vcard-unfold-lines): RFC
+	 says lines longer than 75 octets must be folded.  Folding consists
+	 of CRLF followed immediate by space or tab.
+	* ebdb-test.el (ebdb-vcard-fold/unfold): Test new functions.
+
+2017-03-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	All vCard lines should be delimited with CRLF
+
+	* ebdb-vcard.el: Probably safer to enforce this from the very
+	 beginning.
+
+2017-03-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove unused customization groups
+
+	* ebdb.el: And reformat some stuff.
+
+2017-03-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't use copy-sequence plus add-text-properties on strings
+
+	* ebdb-com.el: That's exactly what `propertize' is there for.
+
+2017-03-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Expand ebdb-helm to complete on mails as well
+
+	* helm-ebdb.el (helm-ebdb-candidates): Strings in the candidate list
+	 should also include record email addresses.
+	 (helm-ebdb-compose-mail): For records with multiple email addresses,
+	 prompt for the address to use.
+
+2017-03-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add option for character fold searching
+
+	* ebdb.el (ebdb-search): First of all, new defgroup.
+	 (ebdb-case-fold-search, ebdb-search-transform-functions): Part of
+	 this group.
+	 (ebdb-char-fold-search): New boolean customization option for
+	 enabling char-fold searching.
+	 (ebdb-search): Take new option into account.
+	* ebdb-test.el (ebdb-search-transform-and-fold): Test new stuff.
+	* ebdb.org (Changing Search Behavior): Document new stuff.
+
+2017-03-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	More search functions can use prefixes: mention in manual
+
+	* ebdb.org: (Searching): These three commands can take the prefix now.
+
+2017-03-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove redundant customization group ebdb-utilities-snarf
+
+	* ebdb.el (ebdb-snarf): Just use 'ebdb-snarf as the group name.
+	* ebdb-snarf.el: But move it from this file to ebdb.el.
+
+2017-03-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add close parenthesis to email regexp delimiter
+
+	* ebdb-snarf.el (ebdb-snarf-routines): Had it in the pre, but not in
+	 the post.
+	* ebdb-test.el (ebdb-snarf-mail-and-name): Test for this.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix vCard formatting for anniversaries
+
+	* ebdb-vcard.el (ebdb-fmt-field): There will be more cases to handle
+	 than just this, but this ought to do it for now.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Apparently I was spelling vCard wrong
+
+	* ebdb-vcard.el: Oh, the shame.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add vcard unescaping, and some vcard tests
+
+	* ebdb-vcard.el (ebdb-vcard-unescape): New function, also expand
+	 `ebdb-vcard-escape' so it doesn't double-escape. And fix bug
+	 revealed by testing.
+	* ebdb-test.el (ebdb-vcard-escape/unescape,
+	 ebdb-vcard-export-dont-explode): New tests for some of this stuff.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Bump to version 0.2
+
+	* ebdb.el: Just because.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Include addresses in vcard output, plus escaping
+
+	* ebdb-vcard.el (ebdb-vcard-escape): Escape commas and semicolons, as
+	 per vcard RFC. Use where appropriate
+	 (ebdb-fmt-field): Add formatting method for addresses.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Migrate more search routines to the ebdb-search-display thing
+
+	* ebdb-com.el (ebdb-search-database, ebdb-search-record-class,
+	 ebdb-search-modified): These three commands now use the internal
+	 searching routine. Also, rename `ebdb-search-changed' to
+	 `ebdb-search-modified'.
+	* ebdb.el (ebdb-record-search): New symbol-keyed methods for searching
+	 using the above commands.
+
+	These search options are now actually *less* efficient than they were 
+	before, but this allows you to use them with the filter/append prefixes.
+
+2017-03-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Last tweak to pop-up buffers
+
+	* ebdb-com.el (ebdb-pop-up-window): If we're doing it manually, "buf"
+	 needs to go in as a buffer object, not a string. This might get
+	 fixed in master, but use `get-buffer' anyway. It's also necessary to
+	 add a call to `set-window-prev-buffers', so that the window history
+	 is nil, and it will be killed when the buffer is quit.
+
+2017-03-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix stupidity
+
+	* ebdb.el (ebdb-search): First, "criterion" was unused. Second, the
+	 whole thing was broken. There are tests for a reason; run them
+	 before you push, idiot.
+	 (ebdb-field-phone-signal-text): Sneak this in.
+
+2017-03-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Drop object-print for cl-print-object
+
+	* ebdb.el (cl-print-object): If this method is available, use it.
+	 Otherwise, don't bother with `object-print', it's not useful enough
+	 to want to maintain alongside the former. We've defined
+	 `cl-print-object' for records, database, name fields, mail fields,
+	 and phone fields.
+
+2017-03-02  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Shift transformation of search strings into ebdb-search
+
+	Fixes #39
+
+	* ebdb.el (ebdb-search-read): This originally happened in an :around
+	 method on `ebdb-search-read'. There was no reason to limit
+	 transformation to interactive input of search strings, though.
+	 (ebdb-search): Instead, move it into the more fundamental
+	 `ebdb-search', where it will affect all searches.
+
+2017-03-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-parse-i18n for Chinese phones should pass class arg through
+
+	* ebdb-chn.el (ebdb-parse-i18n): Pass it through to make-instance,
+	 don't assume.
+
+2017-03-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix condition-case catch in ebdb-i18n-* methods
+
+	* ebdb-i18n.el (ebdb-read): In this and all the other :extra methods
+	 in this file, catch the more-general cl-no-method signal, rather
+	 than chasing one of cl-no-applicable-method or cl-no-primary-method.
+	 See code comments at top of file for reason.
+	* ebdb-i18n-test.el (ebdb-i18n-parse-unhandled-name,
+	 ebdb-i18n-parse-unhandled-phone): Test for these conditions.
+
+2017-03-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Search read transform functions needs to work for all methods
+
+	Addresses #39
+
+	* ebdb.el (ebdb-search-read): This :around method was previously only
+	 firing for method calls that involved subclasses of ebdb-field. I
+	 forgot there are several other types of call, the transformation
+	 needs to work for all of them.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix to UUID change
+
+	Update to 40d71b9, addresses #38
+
+	* ebdb.el (ebdb-make-uuid): Need to actually check if the executable
+	 is found.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New label/field alist for vcard export
+
+	Addresses #2
+
+	* ebdb-vcard.el (ebdb-vcard-label-alist): New customization option, an
+	 alist mapping Vcard string labels to field class names.  This is
+	 another step towards Vcard import/parsing; this alist will be used
+	 in that process.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Be more forgiving about contents of BBDB file when migrating
+
+	* ebdb-migrate.el (ebdb-migrate-parse-records): Make fewer
+	 assumptions. Just search forward for something that looks like the
+	 beginning of a record.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Be more when careful migrating timestamps
+
+	* ebdb-migrate.el (ebdb-migrate-vector-to-class): The BBDB timestamps
+	 may be missing hour/minute/second values, in which case replace
+	 those nils with 0s.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Specify class of name fields when updating from MUA
+
+	* ebdb-mua.el (ebdb-annotate-message): Don't just parse as
+	 `ebdb-field-name, as that can result in person records getting a
+	 field-name-simple, which results in an error, which results in a
+	 record with no name being added to the database, which results in
+	 more errors. All this is desperately in need of refactoring, but for
+	 the time being this will do.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Expand gnus-user-format-function-%s
+
+	* ebdb-gnus.el (ebdb-insinuate-gnus): Incorporate the guts of
+	 `gnus-summary-from-or-to-or-newsgroups', so that we get the proper
+	 behavior in sent-message/archive groups. Essentially, make
+	 `gnus-user-format-function-E' behave like Gnus' %f formatting code,
+	 rather than %F. Copying code is bad, it would be nice if this could
+	 be refactored out.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Revert changes to pop-up routine.
+
+	* ebdb-com.el (ebdb-pop-up-window): I'd changed from `split-window' to
+	 `display-buffer', because the quit configuration was better. But the
+	 splitting behavior was wonky, so I'm changing back. Still have to
+	 solve the quit-restore problem, though.
+
+2017-02-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Steal UUID generating function from Org
+
+	Fixes #38
+
+	* ebdb.el (ebdb--make-uuid): Fallback in case there's no uuidgen
+	 program on the system.
+	 (ebdb-make-uuid): Use it.
+
+2017-02-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Autoload calendar-absolute-from-gregorian
+
+	* ebdb.el: Compiler is angry otherwise.
+
+2017-02-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move ebdb-message-search to ebdb.el
+
+	* ebdb-com.el: It shouldn't be in here.
+	* ebdb.el: Move it here.
+
+2017-02-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add Makefile
+
+	* Makefile: World's dumbest Makefile, and it doesn't even work: byte
+	 compilation fails because it relies on external packages, and
+	 tests in ebdb-i18n-test.el fail for the same reason. At least the
+	 main tests run.
+
+2017-02-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Support sending text messages via Signal
+
+	Addresses #37
+
+	* ebdb.el (ebdb-signal-program): Customization option for locating the
+	 signal-cli program.
+	 (ebdb-field-phone-signal-text): Phone field action for sending
+	 texts.
+	 (ebdb-signal-text): Another general command for sending Signal
+	 texts.
+	 (ebdb-signal-get-number): Extract a usable Signal phone number from
+	 a record.
+	 (ebdb--signal-text): Internal function for actually sending the
+	 text.
+
+2017-02-25  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Make sure database files are decoded as utf-8-emacs
+
+	Addresses #35
+
+	* ebdb.el (ebdb-load): Database objects will be loaded correctly no
+	 matter what, this only affects the case where someone visits a
+	 database persistence file directly.
+
+2017-02-25  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Tweaks to testing macros, more tests
+
+	* ebdb-test.el (ebdb-test-with-database, ebdb-test-with-records):
+	 These macros didn't need to be so complicated. Plain `let' was
+	 enough.
+	* ebdb-test.el (ebdb-address-decompose): Add tests for the
+	 `ebdb-decompose-ebdb-address' function.  Split out name and mail
+	 parsing tests.
+	* ebdb.el (ebdb-decompose-ebdb-address): Fix bugs found in test.
+	 (ebdb-parse): Turns out notes fields were missing an `ebdb-parse'
+	 method.
+
+2017-02-25  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Write generics for ebdb-db-add/remove-record
+
+	* ebdb.el (ebdb-db-add-record, ebdb-db-remove-record): Mostly for
+	 eldoc purposes.
+
+2017-02-25  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Allow user transformation of search strings
+
+	Addresses #23
+
+	* ebdb.el (ebdb-search-transform-functions): New custom option -- a
+	 list of functions used to transform search strings.
+	 (ebdb-search-read): Add an :around method that runs search strings
+	 through the functions in the above method.
+
+2017-02-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Compiler-inspired fixes, volume 5453
+
+2017-02-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Snarfing shouldn't pop up its own window
+
+	* ebdb-snarf.el (ebdb-snarf): If any *EBDB* buffer is visible, assume
+	 that buffer is relevant to the snarfing and re-use it.	 But pass the
+	 "append" argument so we don't clobber what was in there to begin
+	 with.
+
+2017-02-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mild hack to make pop up windows work well
+
+	* ebdb-com.el (ebdb-pop-up-window): Make sure window splits.  See code
+	 comment.
+
+2017-02-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Expand ebdb-test-save-vars to save ebdb-db-list as well
+
+	* ebdb-test.el (ebdb-test-save-vars): Save value of ebdb-db-list, too.
+	 (ebdb-test-with-database): Nest `ebdb-test-save-vars' inside this
+	 macro.
+
+2017-02-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Basic tests for EBDB's internationalization support
+
+	* ebdb-i18n-test.el: Not much in here, but it's a start.
+
+2017-02-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Internationalized ebdb-parse method for names must accept slots arg
+
+	Addresses #33
+
+	* ebdb-chn.el (ebdb-parse-i18n): Both these methods must handle a
+	 "slots" argument.
+	* ebdb-i18n.el (ebdb-parse)
+
+2017-02-22  tumashu  <tumashu@163.com>
+
+	Add ebdb-complete.el (#32)
+
+	
+
+2017-02-21  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Provide internationalized ebdb-string and ebdb-parse for phones
+
+	Fixes #29
+
+	* ebdb-i18n.el (ebdb-string, ebdb-parse): Provide internationalized
+	 hooks keyed on the integer country code.
+	* ebdb-chn.el (ebdb-string-i18n, ebdb-parse-i18n): Implement for
+	 Chinese phone numbers.
+
+2017-02-21  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-parse-i18n must also accept a slots argument
+
+	* ebdb-i18n.el (ebdb-parse-i18n): Otherwise it won't preserve existing
+	 slot values, in particular a label.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	More informative warning when deleting record fields
+
+	Fixes #25
+
+	* ebdb-com.el (ebdb-delete-field-or-record): Make it very clear which
+	 field is going to be deleted.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	If alt-names search fails, fall back on actual name field search
+
+	Relevant to #23
+
+	* ebdb.el (ebdb-record-search): Name searches now try the cache first,
+	 but fall back to actual `ebdb-field-search' on the name instances.
+	 This is to allow overrides of `ebdb-field-search' to take effect. It
+	 may slow search down too much.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change keybinding for ebdb-prev-field
+
+	Fixes #27
+
+	* ebdb-com.el (ebdb-mode-map): "DEL" was a weird choice.
+
+	Thanks to Tumashu (Feng Shu) for all the bug discovery and suggestions.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Handle formatting to a fake *EBDB* buffer
+
+	Fixes #26
+
+	* ebdb-format.el (ebdb-format-to-tmp-buffer): It's possible for the
+	 user to choose a *EBDB* formatter when formatting to tmp buffer.  In
+	 that case, output a buffer containing what the *EBDB* buffer would
+	 have contained, but then remove all properties and put it in text
+	 mode.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove final references to ebdb-print
+
+	Fixes #28
+
+	* ebdb-com.el (ebdb-menu): It was still callable from the menu.
+
+2017-02-20  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use ebdb-field-search in notes-type record searches
+
+	* ebdb.el (ebdb-record-search): Everything should go through
+	 ebdb-field-search.
+
+	Relevant to #23
+
+2017-02-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	More tests
+
+	* ebdb-test.el (ebdb-test-with-database, ebdb-test-save-vars): Macros
+	 for set-up and protection against polluting a running EBDB
+	 environment.
+	 (ebdb-test-database-1): Make a temp file name for creating a test
+	 database.
+	 (ebdb-make-database, ebdb-read-database, ebdb-database-unsynced,
+	 ebdb-make-record, ebdb-add-record): New tests.
+
+2017-02-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add protection around ebdb-record-uuid
+
+	* ebdb.el (ebdb-record-uuid): The slot value might not even be
+	 present.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fixes to proper name formatting, part III
+
+	* ebdb.el (ebdb-init-field): Get the variable names right.
+	 (ebdb-delete-field): And reverse operations here.
+
+	Need to go on a new-code diet. Only tests for five days.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Save match data around ebdb-parse-i18n
+
+	* ebdb-i18n.el (ebdb-parse-i18n): Parse methods are likely to using
+	 regexp matching, save match data around them.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't assume Chinese names have both surname and given-names
+
+	* ebdb-chn.el (ebdb-string-i18n): Allow nil values for either.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Yet more fixes to proper name formatting
+
+	* ebdb.el (ebdb-name-fl): Pass the "full" flag to ebdb-name-given.
+	 (ebdb-string): By default return the full name.
+	 (ebdb-init-field): Hash against name both with and without full
+	 given names.
+
+	Further fixes to problems revealed by 927c2ac.	A back-and-forth pass 
+	through ebdb-string --> ebdb-parse --> ebdb-string should always be 
+	idempotent.  That means use full given names everywhere by default, and
+	only remove middle names for convenience.
+
+	Now middle names are displayed by default in *EBDB* buffers.  We'll 
+	probably want a customization option for that.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Pop up EBDB buffer when using company to complete
+
+	* company-ebdb.el (company-ebdb--post-complete): New post-completion
+	 command.  When using company-mode to complete names, pop up the
+	 buffer same as if we'd used TAB.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix ebdb-delete-redundant-mails
+
+	Fixes #22
+
+	* ebdb-com.el (ebdb-delete-redundant-mails): Had not been updated to
+	 use classes, etc.
+
+2017-02-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Protect gnus stuff behind eval-after-load
+
+	Fixes #24
+
+	* ebdb-message.el: Don't assume Gnus is loaded.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Stupid mistake in previous commit
+
+	* ebdb.el (ebdb-name-fl): This is what I get for hasty commits.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Be more careful about name formatting
+
+	* ebdb.el (ebdb-name-given): If there's no given name, don't do
+	 anything with it.
+	 (ebdb-name-fl): Don't assume that any name elements are present.
+	 Format accordingly.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Increase base field indentation in *EBDB* buffers
+
+	Addresses #21
+
+	* ebdb-com.el (ebdb-fmt-record-body): Give field values a little more
+	 default indentation.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix menu entry of ebdb-create-record
+
+	Addresses #21
+
+	* ebdb-com.el (ebdb-menu): It was listed as `ebdb-create', which no
+	 longer exists.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	When replying to messages, start with a populated EBDB buffer
+
+	* ebdb-message.el: We've already got contacts to display, so create
+	 an *EBDB* buffer right off the bat, and use gnus window
+	 configuration to make sure it's displayed.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New ebdb-message-buffer-name subst
+
+	* ebdb-message.el (ebdb-message-buffer-name): "Write it twice then
+	 refactor".  Just about to write it the third time.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add safety check to ebdb-undisplay-records
+
+	* ebdb-com.el (ebdb-undisplay-records): It's possible we could be
+	 passed a non-existent buffer.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Clear *EBDB-Message* buffers when composing new message
+
+	* ebdb-message.el (ebdb-insinuate-message): EBDB buffers associated
+	 with message-mode and mail-mode don't get cleared by default, do it
+	 manually.
+
+2017-02-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Check for existence of fiel-attribute-modification-time
+
+	Fixes #19
+
+	* ebdb.el (ebdb-db-unsynced): It was added in Emacs 26.1.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change signature of ebdb-undisplay-records
+
+	* ebdb-com.el (ebdb-undisplay-records): When would you ever want to
+	 undisplay all EBDB buffers?  Instead, either pass an explicit BUFFER
+	 argument, or use `ebdb-make-buffer-name' to find the buffer to
+	 undisplay.  Should be much more useful.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Missing local variable binding
+
+	* ebdb-com.el (ebdb-display-records): Add "start" to let bindings.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Very basic test setup
+
+	* ebdb-test.el: New file containing tests for EBDB.  Very few tests at
+	 this point.  Most crucial to test parsing and snarfing -- anything
+	 involving regexps.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix parsing of suffixes in names
+
+	* ebdb.el (ebdb-divide-name): This function wasn't actually returning
+	 the suffix as a separate element.
+	 (ebdb-parse): Catch the suffix element and store it in the correct
+	 slot.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove spurious ebdb-record-search implementation
+
+	* ebdb.el: We no longer dispatch on the 'name symbol, only on the
+	 'ebdb-field-name class symbol.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Update company-ebdb for new search behavior
+
+	* company-ebdb.el (company-ebdb--candidates): These search criteria
+	 can no longer be passed in as plain symbols, only as class-name
+	 symbols.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove this empty file
+
+	* test.txt: Don't remember what this was here for.
+
+2017-02-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove unused code
+
+	* ebdb.el: Remove `ebdb-merge-concat',
+	 `ebdb-merge-concat-remove-duplicates', `ebdb-merge-string-least',
+	 `ebdb-merge-string-most' and `ebdb-merge-lists'.  They aren't used
+	 anywhere.
+
+2017-02-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Allow for characters before mail addresses when snarfing
+
+	* ebdb-snarf.el (ebdb-snarf-routines): Basically, when there are
+	 certain characters before a mail address in the buffer, ignore them
+	 and look for a name on the line above.
+
+2017-02-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Bah, fixups to a19ff0a
+
+	* ebdb-com.el (ebdb-pop-up-window): Compile and test first, why don't
+	 you?
+
+2017-02-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix autoloads in ebdb.el
+
+	* ebdb-com.el: First of all, remove `ebdb-dwim-mail' from this file.
+	* ebdb.el: And add it here.  It's a general-use function, it shouldn't
+	 be in ebdb-com.el.  Also adjust autoloads: half of the autoloaded
+	 functions weren't being used in this file, and nothing here should
+	 ever depend on ebdb-com.el.  Lastly, there's no need to wrap in
+	 `eval-when-compile': the autoloads should be available at load and
+	 compile times.
+
+2017-02-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Tweaks and additions to manual
+
+	* ebdb.org: Various.
+
+2017-02-15  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify pop-up window splitting
+
+	* ebdb-com.el (ebdb-pop-up-window): Use `display-buffer' with
+	 `display-buffer-pop-up-window' rather than `split-window'.  This is
+	 a bit of an experiment -- doing it this way means we're no longer
+	 able to specify horizontal vs vertical splitting, and instead rely
+	 on Emacs to DTRT.  The upside is that Emacs will DTRT, and the
+	 resulting buffers are easier to use (the quit configuration is set
+	 correctly, mostly).
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix incorrect variable name
+
+	* ebdb-snarf.el (ebdb-snarf-query): The "name" was leftover from
+	 previous iteration.
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Feeding incorrect args to ebdb-snarf
+
+	* ebdb-mua.el (ebdb-mua-snarf-article): Argument signature was wrong.
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	VCard export is good enough
+
+	Fixes #1, or at least close enough for now.
+
+	* ebdb-vcard.el (ebdb-vcard-default-30-formatter,
+	 ebdb-vcard-default-40-formatter): Split out these options, you'll
+	 want to export to different formats at different times, and it's
+	 good to start out with one of each.
+	 (ebdb-fmt-process-fields): New method.	 The sole purpose of this is
+	 to figure out what to do about role fields.  Our current solutions
+	 is to attempt to link all related properties with the TYPE
+	 parameter, which is guaranteed to screw something up somewhere.
+	 Anyway, this basically works; wait for bug reports.
+	 (ebdb-fmt-record): Use the above function.
+	 (ebdb-fmt-record-header): Add the SORT-AS parameter to names.
+	 (ebdb-fmt-field-label): Handle all different priorities of mail
+	 fields.
+	 (ebdb-fmt-field-label, ebdb-fmt-field): Add methods for the Org tags
+	 fields.  We'll probably need autoloads here.
+	* ebdb.org: Mention formatting in manual.
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Provide keybinding for ebdb-format-all-records
+
+	* ebdb-com.el (ebdb-mode-map): Give it the capital F.
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Compiler-inspired fixes, and removal of old-code references
+
+	Mostly just fixing compiler warnings, but also removing last references
+	to xfields, etc. ebdb-vm.el is the only file that still uses
+	non-existant functions.
+
+2017-02-11  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix up actions and EBDB buffer menus
+
+	* ebdb.el (ebdb-field): Define actions as a list of ("Descriptive
+	 string" . function-name) elements.  Change all field class
+	 definitions accordingly.
+	 (ebdb-action): Edit accordingly.
+	 (ebdb-field-relation): Make this an action, not a separate function.
+	 (ebdb-field-anniversary-calendar, ebdb-field-anniversary-agenda):
+	 Give anniversary fields two distinct actions.
+	* ebdb-com.el (ebdb-insert-field-menu): Fix field insertion menu.
+	 (ebdb-record-action): Call action functions directly.
+	 (ebdb-field-menu): Extract action bits accordingly.
+	 (ebdb-mode-map): Use RET to call actions, not "a".
+
+2017-02-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix ebdb-delete-redundant-mails
+
+	* ebdb-com.el (ebdb-delete-redundant-mails): Possibly the last old
+	 code in EBDB.
+
+2017-02-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fixup with fix popup menus
+
+2017-02-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix pop-up mouse menus in EBDB buffers
+
+	Closes #17
+
+	* ebdb-com.el (ebdb-sendmail-menu): Have to extract string from mail
+	 address.
+	 (ebdb-field-menu): Just loop over the field's actions.
+
+2017-02-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Update copyright years to 2017
+
+2017-02-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Implement popping of buffer search history
+
+	Closes #12
+
+	* ebdb-com.el (ebdb-search-history): New buffer-local defvar holding
+	 search history for this EBDB buffer.  Search history is a list of
+	 record uuids.
+	 (ebdb-search-display): When running user-initiated searches in an
+	 existing EBDB buffer, store the list of previously-displayed
+	 records.
+	 (ebdb-display-records): Don't call `ebdb-mode' if we're already in
+	 it, as that wipes local variables.
+	 (ebdb-search-pop): New command for popping history.
+	* ebdb.org: Document in manual.
+
+2017-02-09  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rework anniversary/diary integration
+
+	Closes #16
+
+	* ebdb-anniv.el: Remove file.
+	* ebdb.el (ebdb-anniv-use-diary): New option governing whether or not
+	 we integrate with the diary.
+	 (ebdb-anniv-diary-entries, ebdb-init-field, ebdb-delete-field,
+	 ebdb-field-anniv-diary-entry): If we do, use the init/delete methods
+	 of anniversary fields to populate the `ebdb-anniv-diary-entries'
+	 list with entries that will be fed to `diary-add-to-list'.
+	 (ebdb-anniv-add-entries): Add all entries from
+	 `ebdb-anniv-diary-entries' to the diary using `diary-add-to-list'.
+	 (ebdb-load): Add the previous function to the
+	 `diary-list-entries-hook', if we're using the diary.
+
+	There's a lot more customization to provide here, but it should *all* be
+	handled in `ebdb-field-anniv-diary-entry' and
+	`ebdb-anniv-add-entries'. The basic mechansism shouldn't have to change.
+
+2017-02-09  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	First stab at article snarfing
+
+	* ebdb-mua.el (ebdb-mua-snarf-article): Interactive function for
+	 snarfing the text of an article in MUA.
+	 (ebdb-mua-article-body): Generic function for returning the text of
+	 an article.
+	* ebdb-gnus.el (ebdb-mua-article-body): Implement for Gnus.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't ((lambda ())
+
+	* ebdb-com.el (ebdb-compare-records): Use funcall instead.
+
+	Note that none of these functions actually work, currently.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Comment out ebdb-mua-auto-snarf-signature
+
+	* ebdb-com.el: Too soon for this.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Tiny tweak to snarfing
+
+	* ebdb-snarf.el (ebdb-snarf-collect): Split generic-re on more things,
+	 thinking specifically of names here.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix up Org link following
+
+	* ebdb-org.el (ebdb-org-open): We have better search routines now, use
+	 them.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use string-match-p for searching on Org tags
+
+	* ebdb-org.el (ebdb-field-search): Don't require an exact tag match,
+	 allow regexps.
+
+	Maybe we should still require exact tag matches, but somehow handle tag
+	groups?
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Give Org mode its own popup window
+
+	* ebdb-org.el (ebdb-make-buffer-name): Define a method for org-mode.
+	 (ebdb-org-open): Pop up a buffer when opening links.
+
+	Eventually we should shift things so that EBDB considers Org just 
+	another MUA.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Re-initialize database records after reloading
+
+	* ebdb.el (ebdb-db-reload): After the load and initialization
+	 processes were separated, we forgot to load-plus-initialize when
+	 reloading a database.
+
+2017-02-08  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Allow optional records argument to ebdb-initialize
+
+	* ebdb.el (ebdb-initialize): Allow for initializing only a subset of
+	 records (for now only used when reloading).
+
+2017-02-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	More tweaks to snarfing process
+
+	* ebdb-snarf.el (ebdb-snarf): Okay, they're mostly bugs. Was
+	 clobbering the parameter name here.
+	 (ebdb-snarf-collect): Pick up the correct name regexp grouping.
+	 Also, special-case matching email addresses -- drop the domain part.
+	 And don't match quite so much.
+	 (ebdb-snarf-query): Fix bug leftover from old implementation.
+
+2017-02-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bugs in ebdb-annotate-message
+
+	Fix bugs introduced in ed6e22
+
+	* ebdb-mua.el (ebdb-annotate-message): Hard to imagine what I was
+	 thinking here -- drunk coding?
+
+2017-02-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Have ebdb-snarf accept optional records argument
+
+	* ebdb-snarf.el (ebdb-snarf): It should be possible to pass this
+	 argument down all the way from the top.
+
+2017-02-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	First actually-working version of snarfing
+
+	* ebdb-snarf.el (ebdb-snarf): Fix finding the correct string.
+	 (ebdb-snarf-collect): Use vectors.
+	 (ebdb-snarf-process): Use vectors.
+	 (ebdb-snarf-query): Use vectors; work better.
+
+	We're still only looking for mail-address fields, but the system should
+	now be generalized so that simply adding elements to
+	`ebdb-snarf-routines' will do the trick.
+
+	This whole thing will look a lot better when we refactor
+	`ebdb-record-field-slot-query' inside `ebdb-record-insert-field'.
+
+2017-02-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Check Organization headers and display/update organization records
+
+	* ebdb-mua.el (ebdb-message-headers): Add an 'organization entry to
+	 this alist, and check the "Organization:" header.
+	 (ebdb-annotate-message): Check the header type and create an
+	 organization record if that's what we're looking at.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Compiler-inspired fixes
+
+	* ebdb-com.el: Quote class names, delete unused variable, delete
+	 second identical definition of `ebdb-search-organization'.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify ebdb-dwim-mail
+
+	* ebdb.el: Remove options `ebdb-mail-name-format' and
+	 `ebdb-mail-name'. Re-instate later if people complain. If a
+	 different name is desired for a particular mail address, we can use
+	 the mail-aka slot.
+	* ebdb-com.el (ebdb-dwim-mail): Don't go to such lengths when matching
+	 the name and mail user. Just a simple check for likely matches, and
+	 move on. This also removes dependency on person record complex
+	 names, which previously would have raised an error for an
+	 organization.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Ensure that extra name field instances go in 'aka slot
+
+	* ebdb.el (ebdb-field-name): This should subclass ebdb-field, not
+	 ebdb-field-user, or else instances will go in the 'fields slot.
+	 (ebdb-record-field-slot-query): Must explicitly list the types of
+	 name class, and the fact they both go in the 'aka slot.
+
+	There's actually no reason to have a separate 'aka slot -- 
+	initialization and caching does everything that needs doing with name 
+	instances.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-record-search can accept symbols for search type
+
+	* ebdb.el (ebdb-search): Don't use pcase to filter based on type.
+	 Essentially we're using generic methods to filter on type.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix bug in ebdb-record-field-slot-query
+
+	* ebdb.el (ebdb-record-field-slot-query): Checking the wrong variable.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Make ebdb-annotate-message more class agnostic
+
+	* ebdb-mua.el (ebdb-annotate-message): This function was previously
+	 assuming person records, and complex names. Change so that it
+	 doesn't need to know what kind of record it's annotating.
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Typo in ebdb-mua-check-header
+
+	* ebdb-mua.el (ebdb-mua-check-header): Should be checking
+	 "recipients", not "recipient".
+
+2017-02-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify record mail citing
+
+	* ebdb.el (ebdb-records-cite-mail): The inline version is the same, we
+	 only need one :around method. And, instead of checking if records is
+	 non-nil, just use a list specializer for the records argument.
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add helm-ebdb file
+
+	This will eventually get broken off into its own package.
+
+	* helm-ebdb.el: New file, containing basic helm integration for EBDB.
+	 Provide three actions for selected candidates: display, send mail,
+	 and insert name/address pair.
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add EBDB record citation
+
+	* ebdb.el (ebdb-cite-records-mail, ebdb-records-cite-mail): Add an
+	 interactive function and several methods for citing record name/mail
+	 pairs.	 `ebdb-cite-records-mail' is the interactive command, which
+	 hands off to the `ebdb-records-cite-mail' method, which dispatches
+	 on the current major mode.
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-prompt-for-record should load if necessary
+
+	* ebdb.el (ebdb-prompt-for-record): Use (ebdb-records) rather than
+	 ebdb-record-tracker, this will trigger loading if necessary.
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add "Hacking EBDB" section to manual
+
+	* ebdb.org: Add a section on hacking EBDB with new field classes and
+	 methods.
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use ebdb-prompt-for-record in org link completion
+
+	* ebdb-org.el (org-link-set-parameters): Using
+	 `ebdb-prompt-for-record' is a little cleaner.
+
+	Is there still a need for `ebdb-completing-read-record'?
+
+2017-02-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change some of the EBDB buffer formatting defaults
+
+	* ebdb-format.el: By default, add ebdb-field-address to the :collapse
+	 slot of the formatters.  Also, by default format fields using the
+	 'normal style rather than the 'oneline style.
+
+	What this means, practically, is that most fields are just output using
+	`ebdb-string'.	Previously, everything was output as 'oneline, which
+	meant a bunch of spurious `split-strings', now they just dump their
+	whole strings.	Nothing actually specializes on 'normal, but it will hit
+	the catch-all.
+
+	Addresses are now 'collapse, which is re-routed to 'oneline by default,
+	which means addresses are the only fields that get
+	`split-string'ed, but it's also possible to catch 'collapse and do 
+	something different.
+
+2017-01-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify ebdb-record-field for strings
+
+	* ebdb.el (ebdb-record-field): If the argument is a string, just use
+	 `ebdb-record-user-field' with the string as label.
+
+2017-01-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Special-case mail symbol in ebdb-record-field
+
+	* ebdb.el (ebdb-record-field): Provide special handling for 'mail, as
+	 mail addresses can come from more than one place.
+
+2017-01-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Wrap ebdb-parse in save-match-data
+
+	* ebdb.el (ebdb-parse): Add :around method so parsing doesn't clobber
+	 match data.
+
+2017-01-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	First generalized version of snarfing
+
+	Doesn't actually work yet, though
+
+2017-01-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify searching
+
+	* ebdb-com.el: There's no reason to dispatch on symbols and then
+	 create these weird data structures. Dispatch on field classes, and
+	 save the symbol dispatching for strange or compound searches.
+	* ebdb.el (ebdb-search): Condition-case cl-no-applicable-method.
+	 (ebdb-record-search): Record search on user fields can now be much
+	 simplified.
+
+2017-01-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Refinements to snarfing
+
+	* ebdb-snarf.el: Various improvements to snarfing. Getting closer to a
+	 generalized version that will be field-class agnostic.
+	* ebdb.org: Mention in manual.
+
+2017-01-22  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Complete changes from ed3e270
+
+	* ebdb-com.el (ebdb-pop-up-window): Was accessing the elements of
+	 "pop" arg incorrectly.
+	* ebdb-gnus.el (ebdb-popup-window): Only one of the method was using
+	 the new return signature.
+
+2017-01-21  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Merge snarf branch, basic framework of snarfing in place
+
+	* ebdb-snarf.el (ebdb-snarf, ebdb-snarf-collect, ebdb-snarf-process):
+	 Three functions that prepare the text, collect record/field
+	 information from the text, and create/update/display records,
+	 respectively.
+
+	Doesn't actually do very much yet -- only recognizes mail addresses or 
+	mail-plus-name.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Reverse order of args in return value of ebdb-popup-window
+
+	* ebdb-com.el (ebdb-popup-window): Should now return a three-element
+	 list where the horiz/vert argument is last. This is because that
+	 argument is almost always nil (meaning split based on the dimensions
+	 of the window in question) so we might as well leave it off.
+	 (ebdb-pop-up-window): Read arg correctly, and also fix a logic bug
+	 where the window would never have been split vertically.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Force mode line update after renaming EBDB buffers
+
+	* ebdb-com.el (ebdb-clone-buffer): Get the new name visible in the mode
+	line.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	No, that's not the proper way to create a &context catchall
+
+	* ebdb-mua.el (ebdb-mua-prepare-article): Just an empty argument list
+	 will do.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Manual and README additions
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Short-circuit ebdb-info
+
+	* ebdb-com.el (ebdb-info): Just mention the temporary Org file.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove ebdb-new-mails-primary
+
+	* ebdb-mua.el: This option wasn't being used, and the whole process of
+	 mail priority needs to be reworked.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove all pop-up-window-size type options
+
+	At the moment, the position and size of pop-up windows are hard-coded in
+	MUA code. Re-introduce options as and when users demand them.
+
+	* ebdb-com.el: Remove `ebdb-pop-up-window-size' and
+	 `ebdb-horiz-pop-up-window-size'.
+	* ebdb-mua.el: Remove `ebdb-mua-pop-up-window-size' and
+	 `ebdb-mua-horiz-pop-up-window-size'.  Remove let bindings from
+	 various commands.
+	* ebdb.org: Basic documentation of this.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify the structure of ebdb-org-hashtable
+
+	* ebdb.el (ebdb-init-field, ebdb-delete-field): These field-role
+	 methods cache role information in ebdb-org-hashtable. The hash
+	 entries used to be more complex, because roles originally didn't
+	 store their record's uuid. They do now, so the entries can be much
+	 simplified: simply a list of role fields, keyed to organizations'
+	 uuids.
+	 (ebdb-delete-record, ebdb-record-insert-field): Change access
+	 accordingly.
+	 (ebdb-record-add-org-role): Turn this into a method.
+	* ebdb-format.el (ebdb-fmt-collect-fields): Change access accordingly.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Searching on empty strings should happen in field-search method
+
+	* ebdb.el (ebdb-record-search): There's no reason to do the check
+	 here.
+	* ebdb.el (ebdb-field-search): Instead, do it here.  I suppose this
+	 could even be an :around method on ebdb-field-search, to
+	 short-circuit the test.
+
+2017-01-19  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Install ebdb-save as a kill-emacs-hook
+
+	* ebdb-com.el: Hope I don't regret this for any reason.
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Allow company-ebdb to work in notmuch-message-mode as well
+
+	* company-ebdb.el (company-ebdb-modes): How I wish notmuch didn't
+	 hijack message-mode.
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Make ebdb-search-read and ebdb-search-field into generics
+
+	* ebdb.el (ebdb-search-read): Each field class has the potential to
+	 prompt the user for its own search criteria, which are then fed back
+	 to its own implementation of `ebdb-search-field'.
+	 (ebdb-record-search): Fix the 'user implementation of this method,
+	 now works with record labels again.
+	* ebdb-com.el: Change interactive calls to `ebdb-search-read' to use
+	 the field class instead of string prompt, where appropriate.
+	* ebdb-org.el: Provide `ebdb-search-read' and `ebdb-field-search'
+	 methods for the org tags class.
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change default separator of org tags
+
+	* ebdb-org.el: Why was it a semicolon?
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Tweaks to MUA interactive commands
+
+	* ebdb-mua.el: Remove the update-p arg from everything, and fix up
+	 `ebdb-mua-edit-field' so it actually works. Still needs heavy
+	 refactoring, though.
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change default of ebdb-default-user-field
+
+	* ebdb.el (ebdb-default-user-field): Use the field class symbol
+	 instead of 'notes, it makes things much easier elsewhere.
+
+2017-01-18  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change default keybindings in Gnus
+
+	* ebdb-gnus.el (ebdb-insinuate-gnus): ":" now does
+	 ebdb-mua-update-records by default.
+
+2017-01-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Update company-ebdb to work with new search style
+
+	* company-ebdb.el (company-ebdb--candidates): `ebdb-search' takes its
+	 arguments differently now.
+
+2017-01-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add sections on searching and record marking to manual
+
+2017-01-17  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rework MUA window popups
+
+	Fixes #14
+
+	Refactoring still required.
+
+	* ebdb-mua.el (ebdb-popup-window): Replace `ebdb-mua-window-p' with
+	 this, a generic function in MUA packages that returns the window to
+	 be split, and how to split it.
+	* ebdb-com.el (ebdb-pop-up-window): Rework function to accept value of
+	 `ebdb-popup-window'.
+	* ebdb-gnus.el: Implement `ebdb-popup-window'.
+	* ebdb-message.el: Implement `ebdb-popup-window' (and fix some very
+	 embarrassing mistakes).
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rework *EBDB* buffer searching
+
+	Does not fix but does address #12
+
+	BUG: Searching on the labels of ebdb-user-field-simple instances still 
+	doesn't work correctly, but at least it errs on the side of 
+	permissiveness.
+
+	From a plumbing point of view, there's now a clear chain from 1) various
+	interactive search commands that call 2)
+	`ebdb-search-display', which is responsible for handling and displaying
+	the records found by 3) `ebdb-search' which actually does the searching.
+
+	From a UX point of view, most of the search commands can now be called 
+	with one of three prefix keys: "/" which searches all records and 
+	replaces the contents of the *EBDB* buffer, "|" which filters on the 
+	already-displayed records, and "+" which appends to the 
+	already-displayed records.
+
+	This means that the `ebdb-append-*' stuff is gone.
+
+	Meanwhile, `ebdb-search-invert' etc still exists, but has been moved to
+	ebdb-com.el.
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Many fixes to migration routine
+
+	Fixes #15
+
+	Thanks to Andy Cowling for reporting.
+
+	* ebdb-migrate.el (ebdb-migrate-vector-to-class): Had accumulated many
+	 small bugs.
+	 (ebdb-migrate-parse-records): This is the weird part, no idea how
+	 this had ever worked.
+	* ebdb.el: Tweak requires and autoloads, as well as parts of the role
+	 adoption routine.
+	* ebdb-gnus.el: Autoload message-make-domain.
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Split off ebdb-record-field for field classes
+
+	* ebdb.el (ebdb-record-field): Move the cond branch checking if FIELD
+	 is a field class into a separate method.
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Another round of compiler-inspired fixes
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Simplify role field adoption process
+
+	* ebdb.el (ebdb-record-insert-field): Essentially the same function
+	 had been written three times.
+	 (ebdb-record-adopt-role-fields): Use this existing function in all
+	 cases.
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix to ebdb-parse with field-name-simple
+
+	* ebdb.el (ebdb-parse): Was missing a "slots".
+
+2017-01-16  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Improve organization searching
+
+	* ebdb.el (ebdb-record-search): New methods that specialize on the
+	 'organization symbol. Implement for person and organization records.
+	 While we're at it, add a record-search implementation for
+	 organizations and mails -- it should also check the domain slot.
+	* ebdb-com.el (ebdb-search-organization): Alter this accordingly.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix organization name matching in migration
+
+	* ebdb-migrate.el (ebdb-migrate-from-bbdb): Organization name slots
+	 are no longer plain strings.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add missing require statement
+
+	* ebdb-org.el: Need to require 'ebdb.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Clean up keymap bindings
+
+	* ebdb-com.el (ebdb-mode-map): Almost nothing but align-regexp on
+	 source code.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix the reload process
+
+	* ebdb.el (ebdb-db-reload): The actual database object needs to be
+	 re-read from the persistence file.
+	 (ebdb-db-unsynced): We should be checking modification time, not
+	 access time. And use the provided accessor.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Expand ebdb-with-record-edits
+
+	Fixes #13
+
+	* ebdb-com.el (ebdb-with-record-edits): Provide more feedback and
+	 choices to the user when the databases have problems. Should
+	 actually work correctly now.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add a generic for ebdb-db-editable
+
+	* ebdb.el (ebdb-db-editable): It's good to have the arg signature in
+	 eldoc.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fill out the ebdb-parse process
+
+	* ebdb.el (ebdb-parse): Use a generic so we can see the argument list.
+	 Turn this into a "call-down" method that results in the creation of
+	 a field instance. Provide a base method for the ebdb-field-name
+	 class, that dispatches to either the simple or complex field class.
+	 Later, the MUA record creation process should use this better. Tweak
+	 the field-phone implementation so it conforms to the process.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Note new database-related commands in manual
+
+	* ebdb.org: In the database section.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Split ebdb-db-disable into interactive/non-interactive functions
+
+	* ebdb.el (ebdb-db-disable): Change function to method, remove
+	 interactive elements.
+	* ebdb-com.el (ebdb-disable-database): New function providing
+	 interactive elements of above. Provide keybindings, etc.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Still need to hash newly-added records
+
+	* ebdb.el (ebdb-db-add-record): This is no longer the main spot for
+	 uuid checking, but we still need to do it here -- it has to work for
+	 newly-added records.
+
+2017-01-13  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Omnibus changes to display and redisplay
+
+	There are now only two basic functions: `ebdb-display-records' and
+	`ebdb-redisplay-records'. The former simply fills an *EBDB* buffer with
+	formatted records. The latter takes a list of records to be redisplayed,
+	and an "action": how to redisplay them. It finds all the records that
+	are visible in buffers, and applies "action" to them by calling the
+	appropriate `ebdb-redisplay-record' method on each record. Record
+	marking, omitting, unloading, format toggling, etc -- all these things
+	are now implemented with the same system.
+
+2017-01-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use mail-decode-encoded-word-string on returned MUA headers
+
+	* ebdb-mua.el (ebdb-get-address-components): Why was this not
+	 happening before?
+
+2017-01-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix merging procedure
+
+	* ebdb.el (ebdb-merge): Don't prompt about alternate names unless the
+	 names are actually different. Treat the notes field class correctly.
+
+2017-01-10  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Make ebdb-record-name a get-or-get-and-set operation
+
+	* ebdb.el (ebdb-record-name): If the cached string isn't there,
+	 generate it.
+	 (ebdb-init-record): Don't do the caching here.
+	 (ebdb-string): This method for records should make use of
+	 `ebdb-record-name'.
+
+	This ought to work okay. It might shift a tiny bit of user wait time 
+	from load/initialize, to the first search. Probably negligible.
+
+2017-01-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Rename ebdb-display-one-record to ebdb-search-single-record
+
+	* ebdb-com.el (ebdb-search-single-record): The "display" term was
+	 causing confusion with other functions.
+
+2017-01-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove ebdb-this-buffer-name
+
+	Probably unnecessary, but we might want to pass a buffer in as first 
+	argument to `ebdb-pop-up-window'.
+
+2017-01-07  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Using wrong var name in ebdb-edit-field
+
+	* ebdb-com.el (ebdb-edit-field): No wonder none of this seems to work.
+
+2017-01-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Small tweaks to ebdb-load
+
+	* ebdb.el (ebdb-load): Accept actual ebdb-db instances in the
+	 ebdb-sources list, and make some other small changes.
+
+2017-01-06  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Prevent eieio-persistent-save from changing db file slot
+
+	Fixes #11
+
+	* ebdb.el (ebdb-db-do-auto-save): Don't let the persistent save call
+	 change the db filename to the autosave filename.
+
+2017-01-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Re-init mail fields after moving them to a role
+
+	* ebdb.el: (ebdb-record-adopt-role-fields): Mail field needs to be
+	 re-initialized or it won't be hashed and cached.
+
+2017-01-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Update company-ebdb to work
+
+	* company-ebdb.el (company-ebdb--candidates): Very small tweak to get
+	 it working again.
+
+2017-01-05  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use ebdb-defunct face on defunct role fields
+
+	* ebdb-com.el (ebdb-fmt-field): This defunct face is ugly.
+
+2017-01-04  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Autoload eieio-customize-object
+
+	* ebdb-com.el (ebdb-edit-field): Don't require here.
+
+2017-01-04  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Yet another method definition in the wrong place
+
+	* ebdb.el (ebdb-field-mail-compose): Move below definition of
+	 `ebdb-record-entity'
+
+2017-01-04  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix mail field action
+
+	* ebdb.el (ebdb-field-mail-compose): New method handling
+	 ebdb-field-action for mail address fields.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove ebdb-mail-address
+
+	* ebdb-com.el: We have `ebdb-copy-mail-as-kill' for that purpose, and
+	 `ebdb-mail' doesn't need it.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	More fixes to merging logic in ebdb-db-load
+
+	* ebdb.el (ebdb-db-load): Need to make sure right record ends up
+	 getting hashed against the uuid. Also, probably a bad idea to be
+	 let-binding the symbol 'equal.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix autoload for ebdb-org-field-tags definition
+
+	* ebdb.el (ebdb-org-field-tags): Was still calling it
+	 gnorb-ebdb-field-tags.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Restore mail alias functionality
+
+	Closes #7
+
+	* ebdb.el (ebdb-field-mail-alias): Expand mail alias field definition.
+	 Field instances now hold the specific address to use when expanding
+	 the alias.
+	 (ebdb-mail-alias-alist): New defvar holding mail alias information.
+	 As alias fields are created and deleted, this variable is changed.
+	* ebdb-com.el (ebdb-mail-aliases): Rework this function to read the
+	 above variable.
+
+	Deleted functions and variables: ebdb-mail-alias-list, 
+	ebdb-add-mail-alias, ebdb-mail-aliases-need-rebuilt, 
+	ebdb-mail-alias-field, ebdb-mail-alias.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Include record name when prompting for mail
+
+	* ebdb.el: Slightly easier to use this way.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Improve ebdb-copy-mail-as-kill
+
+	* ebdb-com.el (ebdb-copy-mail-as-kill): Now takes a prefix argument,
+	 which prompts for which record mail address to use.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	 Add a "defunct" arg to ebdb-record-mail
+
+	 * ebdb.el (ebdb-record-mail): Controlling whether we return defunct
+	  mail addresses or not.
+	  (ebdb-record-search): When searching mails, also search defunct
+	  mails.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-prompt-for-mail should return single mails with no prompt
+
+	* ebdb.el (ebdb-prompt-for-mail): If there's only one mail, don't ask
+	 about it.
+
+2017-01-03  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New function ebdb-prompt-for-mail
+
+	* ebdb.el (ebdb-prompt-for-mail): Ask the user to choose one of a
+	 record's mail addresses. Returns the actual mail class.
+
+2017-01-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fixup bbdb-mode keymap, menu, and docstring
+
+	* ebdb-com.el: Remove bindings for non-existent functions, add
+	 bindings for new functions, fix up mode documentation.
+
+2017-01-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use eieio-object-p instead of vectorp
+
+	* ebdb-com.el (ebdb-record-list): Sort of unnecessary, since vectorp
+	 works.
+
+2017-01-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use save-excursion in ebdb-toggle-all-record-marks
+
+	* ebdb-com.el (ebdb-toggle-all-record-marks): Leave point where it is.
+
+2017-01-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New ebdb-copy-mail-as-kill command
+
+	* ebdb-com.el (ebdb-copy-mail-as-kill): Produces dwim-mail-style
+	 strings for all marked records.
+
+2017-01-01  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove ebdb-browse-url
+
+	* ebdb-com.el: Superceded by ebdb-field-url action.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change gnorb tags field to plain org tags field
+
+	There was no reason to keep this under the gnorb package.
+
+	* ebdb-org.el (ebdb-org-tags): Tags collection variable moves here.
+	 (ebdb-org-field-tags): As does the class, plus its various methods.
+	* ebdb-gnorb.el: Remove stuff from here.
+	* ebdb-migrate.el (gnorb-ebdb-org-tag-field): Keep this in the
+	 migration file, it's not good for anything else.
+	 (ebdb-migrate-vector-to-class): Adjust the name of the class we're
+	 creating.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Straighten out ebdb-separator-alist
+
+	* ebdb.el (ebdb-separator-alist): Some drunk idiot hit "M-q" on this
+	 defcustom at some point.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Improvements to the gnorb-ebdb-org-tags field
+
+	* ebdb-gnorb.el (gnorb-ebdb-org-tags): New variable holding tags seen
+	 by EBDB, to be combined with `org-global-tags-completion-table'.
+	 (ebdb-read): Use `completing-read-multiple' with the tags.
+	 (ebdb-init-field): Add all field's tags to `gnorb-ebdb-org-tags'.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Trailing code in last commit
+
+	* ebdb-pgp.el: Fully remove ebdb-read-xfield-pgp-mail. Whoops.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Update ebdb-pgp
+
+	Closes #9
+
+	* ebdb-pgp.el (ebdb-field-pgp): New class holding the default
+	 signing/encryption action for this record.
+	 (ebdb-pgp): Update this function to use the class.
+	* ebdb.el: Provide a defclass autoload.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix logic of loading records from multiple databases
+
+	* ebdb.el (ebdb-db-load): This should now work correctly.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove ebdb-file-coding-system variable
+
+	* ebdb.el: eieio-persistent objects are hard-coded to write
+	 'utf-8-emacs, anyway.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Name classes now inherit from ebdb-field-user
+
+	* ebdb.el (ebdb-field-name): Inherit name classes from
+	 `ebdb-field-user', allowing users to choose what kind of name goes
+	 in the aka slot.
+	 (ebdb-field-name-complex): Change human-readable tag to "alt name".
+	 (ebdb-field-name-simple): Change human-readable tag to "nickname".
+
+	This required moving all the abstract field definitions higher in the 
+	file.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix broken quoting for organization simple name reading
+
+	* ebdb.el (ebdb-read): This was causing some weird errors.
+	 (ebdb-record-change-name): This is probably unnecessary.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	ebdb-create-record: set record class outside of interactive call
+
+	* ebdb-com.el (ebdb-create-record): Apparently the second interactive
+	 argument can't refer to the first.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Mess with autoloads
+
+	* ebdb.el: We were autoloading some functions that weren't actually
+	 being used.  Also, try out `eieio-defclass-autoload', which seems
+	 like it could save users some grief.
+	 (ebdb-db-customize): Don't require eieio-custom, function is
+	 autoloaded.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	When unloading, don't remove records from the db's record slot
+
+	This probably will help with #11
+
+	* ebdb.el (ebdb-db-unload): Records should not be removed from the
+	 db's 'record slot, that will result in them getting deleted
+	 altogether!  Just use `ebdb-delete-record' to get them out of the
+	 secondary data structures, then remove the db from `ebdb-db-list'.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Do away with ebdb-seen-uuids
+
+	Now that we're hashing uuids in the load process, this variable isn't 
+	necessary at all.
+
+	* ebdb.el (ebdb-delete-record): Don't need to remove the uuid here.
+	 (ebdb-check-uuid): Just use the hashtable.
+	 (ebdb-clear-vars): Remove from variables that need to be cleared.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Stop pretended init and delete are the same for records and fields
+
+	* ebdb.el (ebdb-init-record, ebdb-delete-record, ebdb-delete-field,
+	 ebdb-init-field): Four new generics.  Replace all `ebdb-init' and
+	 `ebdb-delete' calls with their more-specific versions.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Protect against non-present records in role delete method
+
+	* ebdb.el (ebdb-delete): This whole thing with the roles needs to be
+	 reworked.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Provide ebdb-load guards in a few more places
+
+	* ebdb-com.el (ebdb-completing-read-records): Make sure records are
+	 loaded, if this is the point of entry.
+	* ebdb.el (ebdb-prompt-for-db): Ditto, though I'm less sure about this
+	one.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	New search command ebdb-search-record-class
+
+	* ebdb-com.el (ebdb-search-record-class): Search by record class.
+	 (ebdb-mode-map): Give it a keybinding.
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add keybinding for ebdb-search-database
+
+	* ebdb-com.el (ebdb-mode-map): Is that all of them?
+
+2016-12-31  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add object-print method for records
+
+	* ebdb.el (object-print): Slightly wishful thinking that we can
+	 eventually use this in evaluation printing and backtraces, etc.
+
+2016-12-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remove mentions and bindings for ebdb-do-all-records
+
+	* ebdb-com.el (ebdb-mode-map): This has been replaced by record
+	 marking.
+
+2016-12-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Use "d" prefix for record/database move commands
+
+	* ebdb-com.el (ebdb-mode-map): We've still got "C-k" for
+	 `ebdb-delete-field-or-record', which seems safer anyway. The "d" key
+	 is now the prefix for commands `ebdb-copy-records' and
+	 `ebdb-move-records'.
+
+2016-12-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Make ebdb-display-records non-interactive
+
+	* ebdb-com.el (ebdb-display-records): It's cleaner as a plain
+	 function. Ensure that the "fmt" argument is present.
+	 (ebdb-display-one-record): Replace its previous interactive use with
+	 a dedicated function, that prompts for and displays a single record.
+	 (ebdb-mode-map): Change mode map and menu accordingly.
+
+2016-12-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix ebdb-search-duplicates
+
+	* ebdb-com.el (ebdb-search-duplicates): Move it down with the other
+	 search functions, and make sure it uses `ebdb-formatter-prefix' to
+	 pass a format argument to `ebdb-display-records'.
+
+2016-12-29  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Forgot about rmail
+
+	* ebdb-rmail.el (ebdb-make-buffer-name): Add methods for rmail
+	 major-modes.
+
+2016-12-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Merge branch 'buff'
+
+	Closes #6
+
+2016-12-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Additions to README and manual
+
+2016-12-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Provide protection for relations to unloaded records
+
+	For role and relation fields, don't blow up if the target record is not
+	currently loaded.
+
+	* ebdb.el (ebdb-init): Use a "record not loaded" string for role
+	 fields.
+	 (ebdb-string): And display something similar for relation fields.
+
+2016-12-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Hash record uuids during the loading process
+
+	As each record is loaded, hash its uuid.  This allows the use of
+	`ebdb-gethash' uuid lookups later, during the initialization process.
+
+	* ebdb.el (ebdb-init): Do not hash the uuid during record init.
+	 (ebdb-db-load): Instead, hash during record load.
+	 (ebdb-check-uuid): Now we can use `ebdb-gethash' in this function.
+	 (ebdb-record-insert-field): And in the loading of role fields.
+
+2016-12-28  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move record initialization out of load process
+
+	Part of the motivation of this is that initialization creates 
+	connections between records.  If those records are living in separate 
+	databases, then all databases need to be loaded before initialization 
+	happens.
+
+	* ebdb.el (ebdb-db-load): Don't initialize records here.
+	 (ebdb-initialize): Instead, create a separate function for doing
+	 that.
+	 (ebdb-load): And call it here, after all databases are loaded.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add command to unmark all records
+
+	* ebdb-com.el (ebdb-unmark-all-records): New command. Calling
+	 redisplay for each individual record is highly inefficient when
+	 unmarking lots of records.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Move point to next record when adding a mark
+
+	* ebdb-com.el (ebdb-toggle-record-mark): Slightly more convenient, and
+	 in line with other Emacs marking behavior.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Improve ebdb-field-user docstring
+
+	* ebdb.el (ebdb-field-user): Make it clear what this does.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Merge branch 'master' into buff
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add new ebdb-field-id field
+
+	* ebdb.el (ebdb-field-id): Inherits ebdb-field-obfuscated, so won't
+	 display in the *EBDB* buffer.	Inherits ebdb-field-labeled.
+	 (ebdb-id-label-list): Label list for field instances.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add ebdb-field-obfuscated abstract field class
+
+	* ebdb.el (ebdb-field-obfuscated): New abstract field class that
+	 doesn't do anything but prevent the field contents from being
+	 displayed in the *EBDB* buffer.
+	* ebdb-com.el (ebdb-fmt-field): When formatting the field, display a
+	 bogus string instead.
+	 (ebdb-field-hidden): Font face for that bogus string.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Select newly-cloned buffers
+
+	* ebdb-com.el (ebdb-clone-buffer): This command should select the
+	 resulting cloned buffer.  In fact, it should probably re-use the
+	 existing window instead of popping up another, but that will require
+	 a bit of refactoring of the pop-up code.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Document buffer manipulation commands in the manual
+
+	* ebdb.org: New section "EBDB Buffers".
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Stray "arg" arg left in create-record-extended
+
+	* ebdb-com.el (ebdb-create-record-extended): Whoops.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Provide keybindings for clone-buffer and rename-buffer
+
+	* ebdb-com.el (ebdb-mode-map): Under the "b"-for-buffer prefix.
+
+2016-12-27  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Sort out catch-all version of ebdb-make-buffer-name
+
+	* ebdb-com.el (ebdb-make-buffer-name): Apparently you do it with an
+	 empty arg list.
+	 (ebdb-display-records): Call the method.
+
+2016-12-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	First commit of buffer improvements
+
+	The only thing wrong with this (I hope), is that the catch-all default 
+	implementation of `ebdb-make-buffer-name' still doesn't work -- the 
+	specializer definition is wrong.
+
+2016-12-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Remap binding of ebdb in *EBDB* buffers
+
+	* ebdb-com.el (ebdb-mode-map): Don't use "b", as that's no longer
+	 semantically relevant, and will be used as a buffer operation
+	 prefix.
+
+2016-12-26  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Don't auto-save unsynced databases
+
+	* ebdb.el (ebdb-auto-save-databases): If a database is unsynced, skip
+	 the autosave.
+
+	This might have something to do with #11.  It's probably not the full 
+	solution, but will probably avoid errors.  A real solution would be a
+	deeper rethink of unsynced handling.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change keybindings of record/field copy commands
+
+	* ebdb-com.el (ebdb-mode-map): To avoid clashing with previous binding
+	 for "C".
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Switch to using kbd macro in keymap def
+
+	* ebdb-com.el (ebdb-mode-map): Switch to kdb.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Better customization setup for record fields
+
+	* ebdb.el: Add custom declarations for all field slots where it makes
+	 sense.
+	* ebdb-com.el (ebdb-custom-field-record): Bookkeeping variable so we
+	 can manipulate the record that owns the field being customized.
+	 (ebdb-edit-field-customize): Edit a field using the customize
+	 interface.
+	 (eieio-done-customizing): After customization, mark the record as
+	 dirty and redisplay it.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Add ebdb-search-database
+
+	* ebdb-com.el (ebdb-search-database): Select a database and show all
+	 its records.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Be more careful about text props in record headers
+
+	Specifically, how the location of properties affects editing and 
+	deletion of records/fields.
+
+	* ebdb-com.el (ebdb-current-field): If point is at eol, scan backward
+	 for field, otherwise scan forward
+	 (ebdb-fmt-record-header): Add the actual name field as a property to
+	 the cached name string.
+	 (ebdb-edit-field): Be more careful about checking where point is.
+	 (ebdb-delete-field-or-record): Ditto.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Fix quoting bug in ebdb-fmt-record-header
+
+	* ebdb-com.el (ebdb-fmt-record-header): Quotes were eating variable
+	 value of text property.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Complement ebdb-create-record with ebdb-create-record-extended
+
+	* ebdb-com.el (ebdb-create-record): No longer checks prefix arg to see
+	 if we should do extended querying.
+	 (ebdb-create-record-extended): This command does the querying, and
+	 passes the args to above function.
+
+	Provide separate keybindings for the two commands. This is part of the 
+	move to provide double versions of commands, "plain" and "extended", 
+	bound to lower-case and upper-case versions of the same key.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Forgot extra argument to ebdb-delete-i18n
+
+	* ebdb-chn.el (ebdb-delete-i18n): Needs to accept (and ignore) the
+	 unload argument. The real fix here will be separating out these
+	 major methods into different versions for records and fields.
+
+2016-12-24  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Change interactive defs for move/copy-records
+
+	* ebdb.el (ebdb-move-record, ebdb-copy-records):  These should be
+	 "internal", non-interactive functions.
+	* ebdb-com.el (ebdb-move-records, ebdb-copy-records): New *EBDB*
+	 buffer commands that call the underlying functions.
+
+2016-12-23  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Squash "prep" branch, push to Github
+
+2016-05-14  Eric Abrahamsen  <eric@ericabrahamsen.net>
+
+	Test
+
