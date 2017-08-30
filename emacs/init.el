@@ -28,6 +28,7 @@
 (require 'pacman) ;; Package enables
 (require 'functions)
 (require 'hydras)
+(require 'textweaks) ;;Start up configuration
 (require 'tweaks) ;;Start up configuration
 (require 'hooks) ;; Hooks
 

@@ -136,4 +136,7 @@
 
 (setq powerline-default-separator 'utf-8)
 
+;; Start with everything folded
+;;(folding-mode-add-find-file-hook)
+
 (provide 'pacman)
