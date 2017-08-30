@@ -1,0 +1,10 @@
+pdflatex textest.tex 
+exit
+cd test/
+cd textest/
+find-file textest.tex
+cd test/textest/
+find-file textest.tex
+cd ~
+find0file textest.tex
+find-file textest.tex

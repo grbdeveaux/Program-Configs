@@ -57,22 +57,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'passive_filetypes': ['tex'] }
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" Ultisnips
-
-"" Trigger configuration. Do not use <tab> if you use
-"" https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<M-tab>"
-"let g:UltiSnipsListSnippets="<c-CR>"
-"let g:UltiSnipsJumpForwardTrigger=""
-"let g:UltiSnipsJumpBackwardTrigger=""
-"let g:UltiSnipsEditSplit="vertical"
 
 "" Neosnippet keymappings
 "" Note: It must be "imap" and "smap".  It uses <Plug> mappings.

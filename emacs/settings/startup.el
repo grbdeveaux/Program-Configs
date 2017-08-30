@@ -14,4 +14,11 @@
 ;;Set theme
 (load-theme 'sanityinc-tomorrow-night)
 
+;; Set default window size
+(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 90))
+
+;; Set default line length
+(setq-default fill-column 80)
+
 (provide 'startup)

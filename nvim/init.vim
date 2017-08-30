@@ -11,7 +11,7 @@ Plug 'raimondi/delimitmate'
 Plug 'tomasr/molokai'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic' "Replaced by neomake
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'

@@ -22,4 +22,7 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; Only visually wrap lines between words
+(setq-default word-wrap t)
+
 (provide 'tweaks)

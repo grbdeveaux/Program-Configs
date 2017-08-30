@@ -40,7 +40,7 @@
 
 ;;Whitespace Mode
 (setq whitespace-line-column 80)
-(setq whitespace-style '(face)) ;;Face, space and hard space
+(setq whitespace-style '(face trailing)) ;;Face, space and hard space
 
 (setq-default whitespace-display-mappings '((trailing 32 [?·])))
 
@@ -123,5 +123,17 @@
 
 ;; Rainbow Delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;; Powerline
+(require 'powerline)
+(powerline-center-evil-theme)
+
+;;(set-face-attribute 'mode-line nil
+;;                    :foreground "Black"
+;;                    :background "DarkOrange"
+;;                    :box nil)
+(setq powerline-arrow-shape 'curve)
+
+(setq powerline-default-separator 'utf-8)
 
 (provide 'pacman)

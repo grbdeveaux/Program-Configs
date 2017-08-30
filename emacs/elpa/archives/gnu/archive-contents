@@ -753,7 +753,7 @@
 	     ((:url . "https://github.com/michael-heerdegen/on-screen.el")
 	      (:keywords "convenience"))])
  (org .
-      [(20170814)
+      [(20170828)
        nil "Outline-based notes management and organizer" tar nil])
  (org-edna .
 	   [(1 0 -3 1)
@@ -837,7 +837,7 @@
 	       ((:url . "http://elpa.gnu.org/packages/rcirc-color.html")
 		(:keywords "comm"))])
  (rcirc-menu .
-	     [(1 0)
+	     [(1 1)
 	      nil "A menu of all your rcirc connections" single
 	      ((:url . "http://elpa.gnu.org/packages/rcirc-menu.html")
 	       (:keywords "comm"))])
@@ -1145,7 +1145,7 @@
        ((:keywords "multimedia" "xpm")
 	(:url . "http://www.gnuvola.org/software/xpm/"))])
  (yasnippet .
-	    [(0 12 1)
+	    [(0 12 2)
 	     ((cl-lib
 	       (0 5)))
 	     "Yet another snippet extension for Emacs." tar

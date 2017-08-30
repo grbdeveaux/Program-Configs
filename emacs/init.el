@@ -9,6 +9,14 @@
 (package-initialize) ;;Activate all packages
 
 (add-to-list 'load-path "~/.emacs.d/settings/") ;; Set path to dependencies
+(add-to-list 'load-path "/usr/texbin") ;; Set path to tex
+
+(getenv "PATH")
+ (setenv "PATH"
+(concat
+ "/Library/TeX/texbin" ":" ;first string in quotes is the directory (excluding file) given by the CLI command "which latex" https://tex.stackexchange.com/questions/24510/pdflatex-fails-within-emacs-app-but-works-in-terminal
+
+ (getenv "PATH")))
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
