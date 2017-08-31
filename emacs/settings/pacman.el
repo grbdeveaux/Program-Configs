@@ -129,25 +129,10 @@
   (setq company-minimum-prefix-length 2)
   (setq company-show-numbers t)) ;<M-nthdigit> expands suggestion at the nth digit
 
-;;AUCTEX
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-
-(add-hook 'find-file-hook (lambda () (outline-minor-mode 1)))
-(add-hook 'LaTeX-mode-hook (lambda ()
-                             (TeX-fold-mode 1)))
-;;(add-hook 'find-file-hook 'TeX-fold-buffer t) ;Automatically fold foldable items in buffer when it opens
-
 ;;hlinum
 (require 'hlinum)
 (hlinum-activate)
-(setq linum-highlight-face "red")    ;I think this is getting overwritten by solarized.
+;; (setq linum-highlight-face "red") ;; This is getting overwritten by the theme
 (setq linum-highlight-in-all-buffersp t)
 
 ;;Term
@@ -161,22 +146,14 @@
 ;; Powerline
 (require 'powerline)
 (powerline-center-evil-theme)
-
-;;(set-face-attribute 'mode-line nil
-;;                    :foreground "Black"
-;;                    :background "DarkOrange"
-;;                    :box nil)
-(setq powerline-arrow-shape 'curve)
-
-(setq powerline-default-separator 'utf-8)
-
-;;Doremi
-(require 'doremi)
-(require 'frame-cmds)
+(setq powerline-default-separator 'utf-8) ; Fixes bad colours
 
 ;; Markdown-mode
 (setq auto-window-vscroll nil)
-(setq markdown-header-scaling t) ;for some reason this makes the cursor jump around when scrolling
+(setq markdown-header-scaling t)
 (setq markdown-header-scaling-values '(1.5 1.4 1.3 1.2 1.1 1.0))
+
+;; Command log mode
+(add-hook 'find-file-hook (lambda () (command-log-mode)))
 
 (provide 'pacman)

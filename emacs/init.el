@@ -33,5 +33,3 @@
 (add-hook 'LaTeX-mode-hook(lambda() (require 'textweaks))) ;;Start up configuration
 (require 'tweaks) ;;Start up configuration
 (require 'hooks) ;; Hooks
-
-;; Magit test

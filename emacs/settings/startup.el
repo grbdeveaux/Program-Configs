@@ -21,4 +21,7 @@
 ;; Set default line length
 (setq-default fill-column 80)
 
+;; Silence redefinition messages
+(setq ad-redefinition-action 'accept)
+
 (provide 'startup)
