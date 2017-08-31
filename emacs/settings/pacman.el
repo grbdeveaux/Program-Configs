@@ -1,4 +1,4 @@
-;;Repositories
+;; Repositories
 
 (setq package-archive-priorities
       '(("melpa-stable" . 30)
@@ -21,10 +21,44 @@
 ;;(drag-stuff-global-mode 1)
 ;;(drag-stuff-define-keys)
 
+;; Evil leader (SHOULD BE ENABLED BEFORE EVIL MODE)
+(require 'evil-leader)
+(global-evil-leader-mode)
+
+(evil-leader/set-leader "\\") ; Default is backslash (\)
+
+(evil-leader/set-key
+  "e" 'find-file
+  "b" 'switch-to-buffer
+  "k" 'kill-buffer)
+
 ;;EVIL
 (require 'evil)
 (evil-mode 1)
 
+;;Evil-nerd-commenter
+;; (evilnc-default-hotkeys)
+
+;; Emacs key bindings
+(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+(global-set-key (kbd "C-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
+(global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
+
+;; Vim key bindings
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-key
+  ";" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "."  'evilnc-copy-and-comment-operator
+  "\\" 'evilnc-comment-operator ; if you prefer backslash key
+)
 
 ;;LINUM
 (global-linum-mode 1)
@@ -136,7 +170,13 @@
 
 (setq powerline-default-separator 'utf-8)
 
-;; Start with everything folded
-;;(folding-mode-add-find-file-hook)
+;;Doremi
+(require 'doremi)
+(require 'frame-cmds)
+
+;; Markdown-mode
+(setq auto-window-vscroll nil)
+(setq markdown-header-scaling t) ;for some reason this makes the cursor jump around when scrolling
+(setq markdown-header-scaling-values '(1.5 1.4 1.3 1.2 1.1 1.0))
 
 (provide 'pacman)

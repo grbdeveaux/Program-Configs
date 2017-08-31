@@ -8,3 +8,4 @@ find-file textest.tex
 cd ~
 find0file textest.tex
 find-file textest.tex
+pdflatex resume.tex

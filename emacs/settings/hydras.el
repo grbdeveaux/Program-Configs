@@ -30,46 +30,146 @@
   ("t" tetris   :exit t :color blue)
   ("SPC" nil "Exit Hydra"))
 
-;; ***** Windowing *****
+;; Deluze Window Moving
+(require 'windmove)
 
-(defhydra hydra-window (:color red :hint nil)
-  "
-          ^Size^          ^Move^          ^Split^             ^Close
-          ^^^^^^-----------------------------------------------------------------
-          _t_: Taller     _h_: Left       _V_: Vert Sel       _o_: Del Others
-          _}_: Wider      _j_: Down       _X_: Horz Sel       _0_: Del Current
-          _{_: Narrower   _k_: Up         _v_: Vert
-          _-_: Shrink     _l_: Right      _x_: Horz
-          _+_: Balance
-          _m_: Maximize
-          "
-  ;;Move
-  ("h" windmove-left)             ;Select window to the left of current
-  ("j" windmove-down)             ;Select window under current
-  ("k" windmove-up)
-  ("l" windmove-right)
-  ;;Split
-  ("V" (lambda ()
-         (interactive)
-         (split-window-right)
-         (windmove-right)))
-  ("X" (lambda ()
-         (interactive)
-         (split-window-below)
-         (windmove-down)))
-  ("v" split-window-right)
-  ("x" split-window-below)
-  ;;Size
-  ("t" enlarge-window)
-  ("}" enlarge-window-horizontally)
-  ("{" shrink-window-horizontally)
-  ("-" shrink-window-if-larger-than-buffer)
-  ("+" balance-windows)
-  ("m" ace-maximize-window :color blue)
-  ;;Close
-  ("o" delete-other-windows :color blue) ; Delete other windows
-  ("0" delete-window) ;Close currently active window
-  ("SPC" nil "Exit Hydra"))
+(defhydra hydra-window (:hint nil)
+   "
+Movement^^      ^Split^           ^Switch^          ^Resize^
+-------------------------------------------------------------------
+_h_ ←           _v_ Vertical      _b_ Buffer        _q_ X←
+_j_ ↓           _x_ Horizontal    _f_ Find files    _w_ X↓
+_k_ ↑           _z_ Undo          _a_ Ace 1         _e_ X↑
+_l_ →           _Z_ Reset         _s_ Swap          _r_ X→
+_F_ Follow      _D_ Del Others    _S_ Save          _m_ Maximize
+_SPC_ cancel    _o_ Only this     _d_ Delete
+"
+   ("h" windmove-left )
+   ("j" windmove-down )
+   ("k" windmove-up )
+   ("l" windmove-right )
+;;   ("q" hydra-move-splitter-left)
+;;   ("w" hydra-move-splitter-down)
+;;   ("e" hydra-move-splitter-up)
+;;   ("r" hydra-move-splitter-right)
+   ("q" move-border-left) ;move-border is MUCH faster than hydra-move-splitter
+   ("w" move-border-down)
+   ("e" move-border-up)
+   ("r" move-border-right)
+   ("b" helm-mini)
+   ("f" helm-find-files)
+   ("F" follow-mode)
+   ("a" (lambda ()
+          (interactive)
+          (ace-window 1)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+       )
+   ("v" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right))
+       )
+   ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down))
+       )
+   ("s" (lambda ()
+          (interactive)
+          (ace-window 4)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body)))
+   ("S" save-buffer)
+   ("d" delete-window)
+   ("D" (lambda ()
+          (interactive)
+          (ace-window 16)
+          (add-hook 'ace-window-end-once-hook
+                    'hydra-window/body))
+       )
+   ("o" delete-other-windows)
+   ("m" ace-maximize-window)
+   ("z" (progn
+          (winner-undo)
+          (setq this-command 'winner-undo))
+   )
+   ("Z" winner-redo)
+   ("SPC" nil)
+   )
+
+(defun hydra-move-splitter-left (arg)
+  "Move window splitter left."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+	(windmove-find-other-window 'right))
+      (shrink-window-horizontally arg)
+    (enlarge-window-horizontally arg)))
+
+(defun hydra-move-splitter-right (arg)
+  "Move window splitter right."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+	(windmove-find-other-window 'right))
+      (enlarge-window-horizontally arg)
+    (shrink-window-horizontally arg)))
+
+(defun hydra-move-splitter-up (arg)
+  "Move window splitter up."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+	(windmove-find-other-window 'up))
+      (enlarge-window arg)
+    (shrink-window arg)))
+
+(defun hydra-move-splitter-down (arg)
+  "Move window splitter down."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+	(windmove-find-other-window 'up))
+      (shrink-window arg)
+    (enlarge-window arg)))
+
+;; intuitive window resizing
+(defun xor (b1 b2)
+  (or (and b1 b2)
+      (and (not b1) (not b2))))
+
+(defun move-border-left-or-right (arg dir)
+  "General function covering move-border-left and move-border-right. If DIR is
+     t, then move left, otherwise move right."
+  (interactive)
+  (if (null arg) (setq arg 1))
+  (let ((left-edge (nth 0 (window-edges))))
+    (if (xor (= left-edge 0) dir)
+        (shrink-window arg t)
+        (enlarge-window arg t))))
+
+(defun move-border-up-or-down (arg dir)
+  "General function covering move-border-up and move-border-down. If DIR is
+     t, then move up, otherwise move down."
+  (interactive)
+  (if (null arg) (setq arg 1))
+  (let ((top-edge (nth 1 (window-edges))))
+    (if (xor (= top-edge 0) dir)
+        (shrink-window arg nil)
+        (enlarge-window arg nil))))
+
+(defun move-border-left (arg)
+  (interactive "P")
+  (move-border-left-or-right arg t))
+
+(defun move-border-right (arg)
+  (interactive "P")
+  (move-border-left-or-right arg nil))
+
+(defun move-border-up (arg)
+  (interactive "P")
+  (move-border-up-or-down arg t))
+
+(defun move-border-down (arg)
+  (interactive "P")
+  (move-border-up-or-down arg nil))
 
 
 ;; ***** Outline *****

@@ -34,4 +34,12 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
+;; term automatically runs in zsh
+(defun term ()
+  (interactive)
+  (split-window-below (floor (* 0.8 (window-height))))
+  (windmove-down)
+  (ansi-term "/bin/zsh")
+  (windmove-up))
+
 (provide 'functions)

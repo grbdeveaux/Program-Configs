@@ -6,4 +6,6 @@
 (add-hook 'find-file-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 
+(setq reftex-toc-split-windows-horizontally t)
+
 (provide 'textweaks)
