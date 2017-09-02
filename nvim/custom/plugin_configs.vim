@@ -11,7 +11,6 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-
 " vim-latex
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat = 'pdf'

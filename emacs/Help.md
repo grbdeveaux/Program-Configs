@@ -9,3 +9,7 @@ https://www.emacswiki.org/emacs/LoadingLispFiles
 will compile all the .el files in the directory and in all subdirectories below.
 
 The C-u 0 part is to make it not ask about every .el file that does not have a .elc counterpart.
+
+Use rtags for C++ IDE-like features
+Use company instead of autocomplete. More useful display.
+Use helm alternatives to default commands.

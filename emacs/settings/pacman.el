@@ -8,7 +8,6 @@
 
 (setq-default package-menu-hide-low-priority t)
 
-
 (setq package-archives '(
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -17,14 +16,11 @@
                          ("gnu" . "https://elpa.gnu.org/packages/"))
              )
 
-;;Drag stuff
-;;(drag-stuff-global-mode 1)
-;;(drag-stuff-define-keys)
 
 ;; Evil leader (SHOULD BE ENABLED BEFORE EVIL MODE)
 (require 'evil-leader)
+(setq evil-leader/in-all-states t)
 (global-evil-leader-mode)
-
 (evil-leader/set-leader "\\") ; Default is backslash (\)
 
 (evil-leader/set-key
@@ -45,7 +41,7 @@
 (global-set-key (kbd "C-c c") 'evilnc-copy-and-comment-lines)
 (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 
-;; Vim key bindings
+;; Vim key bindings (requires evil-leader to be installed)
 (require 'evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-key
@@ -70,7 +66,6 @@
 (require 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 (setq smooth-scroll-margin 5)
-
 
 ;;Whitespace Mode
 (setq whitespace-line-column 80)
@@ -121,12 +116,22 @@
 
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
+
 (with-eval-after-load 'company
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
-  (define-key company-active-map (kbd "<tab>") #'company-select-next)
-  (define-key company-active-map (kbd "<S-tab>") #'company-select-previous)
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  ;; (define-key company-active-map (kbd "TAB") nil)
+  (define-key company-active-map [tab] 'company-select-next)
+  ;; (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+  (define-key company-active-map [S-tab] 'company-select-previous)
+  ;; (define-key company-active-map (kbd "C-TAB") 'company-complete-selection)
+  (define-key company-active-map [C-tab] 'company-complete-common)
+  (define-key company-active-map [C-return] 'company-complete-selection)
+  (define-key company-active-map (kbd "<up>") nil)
+  (define-key company-active-map (kbd "<down>") nil)
+  (define-key company-active-map (kbd "C-e") 'company-abort)
   (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t)
   (setq company-show-numbers t)) ;<M-nthdigit> expands suggestion at the nth digit
 
 ;;hlinum
@@ -155,5 +160,12 @@
 
 ;; Command log mode
 (add-hook 'find-file-hook (lambda () (command-log-mode)))
+
+;; markdown-toc
+
+(custom-set-variables
+ '(markdown-toc-header-toc-start "<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->")
+ '(markdown-toc-header-toc-title "")
+ '(markdown-toc-header-toc-end "<!-- markdown-toc end -->"))
 
 (provide 'pacman)
