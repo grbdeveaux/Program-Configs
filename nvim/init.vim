@@ -4,15 +4,14 @@ syntax on
 "Space as a leader is more ergonomic
 "let mapleader="\<Space>"
 
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'kien/ctrlp.vim'
 Plug 'raimondi/delimitmate'
 Plug 'tomasr/molokai'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/rainbow_parentheses.vim'
-"Plug 'scrooloose/syntastic' "Replaced by neomake
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
@@ -20,13 +19,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'honza/vim-snippets'
 Plug 'godlygeek/tabular'
+Plug 'lyuts/vim-rtags'
 Plug 'plasticboy/vim-markdown'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neocomplete'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'neomake/neomake'

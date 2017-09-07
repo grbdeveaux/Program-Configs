@@ -13,6 +13,8 @@
 
 ;;Set theme
 (load-theme 'sanityinc-tomorrow-night)
+;; (load-theme 'solarized-dark)
+;; (load-theme 'zenburn)
 
 ;; Set default window size
 (add-to-list 'default-frame-alist '(height . 40))

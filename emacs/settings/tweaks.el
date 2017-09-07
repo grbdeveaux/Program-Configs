@@ -75,4 +75,7 @@
 (global-set-key (kbd "C-S-<up>") 'move-border-up)
 (global-set-key (kbd "C-S-<down>") 'move-border-down)
 
+;; Cursor settings
+(setq blink-cursor-mode nil)
+
 (provide 'tweaks)

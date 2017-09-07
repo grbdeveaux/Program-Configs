@@ -168,4 +168,7 @@
  '(markdown-toc-header-toc-title "")
  '(markdown-toc-header-toc-end "<!-- markdown-toc end -->"))
 
+;; Flyspell
+(setq ispell-program-name "/usr/local/bin/ispell") ; Output from which ispell
+
 (provide 'pacman)
