@@ -6,7 +6,7 @@ make_backup()
     echo "\n$NAME"
     if [ -f $ORIGINAL.old ] || [ -d $ORIGINAL.old ]; then   # check if a backup already exists
         echo "$1 already has a backup. All existing backups should be handled before deploying.\n"
-        exit 0 
+        exit 0
     elif [ -f $ORIGINAL ] || [ -d $ORIGINAL ]
     then
         mv $ORIGINAL $BACKUP
@@ -109,6 +109,7 @@ if echo "$answer" | grep -iq "^y" ;then
     make_backup ~/.vim
     make_backup ~/.vimrc
     make_backup ~/.zshrc
+    make_backup ~/.tmux
 else
     echo "\nNot backing up old dotfiles."
 fi
@@ -127,6 +128,7 @@ if echo "$answer" | grep -iq "^y" ;then
     ln -s ~/dotfiles/zsh/zshrc_manager.sh ~/.zshrc
     ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
     ln -s ~/dotfiles/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
+    ln -s ~/dotfiles/tmux ~/.tmux
 else
     echo "\nNot creating symlinks."
 fi
