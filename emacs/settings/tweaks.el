@@ -1,3 +1,4 @@
+
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ; One line at a time
 (setq mouse-wheel-progressive-speed nil) ; Don't accelerate scrolling

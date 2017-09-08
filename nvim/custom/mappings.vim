@@ -95,3 +95,9 @@ nnoremap <silent> <M-left> :vertical resize -1<cr>
 nnoremap <silent> <M-down> :resize +1<cr>
 nnoremap <silent> <M-up> :resize -1<cr>
 nnoremap <silent> <M-right> :vertical resize +1<cr>
+
+"Navigating with guides
+inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+vnoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+map <Space><Space> <Esc>/<++><Enter>"_c4l
+inoremap ;gui <++>
