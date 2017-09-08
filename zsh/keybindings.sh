@@ -14,7 +14,7 @@ function git_prepare() {
     zle accept-line
 }
 zle -N git_prepare
-bindkey "^g" git_prepare
+bindkey "gpp" git_prepare
 
 # Edit and rerun
     function edit_and_run() {
@@ -70,4 +70,3 @@ bindkey "^g" git_prepare
 #    zle -N up_widget
 #    bindkey "^k" up_widget
 # git
-

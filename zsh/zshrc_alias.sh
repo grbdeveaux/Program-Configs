@@ -1,15 +1,12 @@
 # Configs and tools
 alias omzs="nvim ~/.oh-my-zsh"
 alias szs="source ~/.zshrc"
-alias ezs="nvim ~/.zshrc"
+alias uzs="source ~/.zshrc"
 alias etm="nvim ~/.tmux.conf"
 alias etml="nvim ~/.tmux.conf.local"
 alias cdnv="cd ~/.config/nvim/"
 alias ebrc="nvim ~/.bashrc"
 alias updatebrc="source ~/.bashrc"
-alias vim="nvim"
-alias vi="nvim"
-alias v="nvim -p"
 
 # Others
 alias db="cd ~/Dropbox/"
@@ -94,4 +91,3 @@ alias mkgz='tar -cvzf'
 alias untar='tar -xvf'
 alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
-

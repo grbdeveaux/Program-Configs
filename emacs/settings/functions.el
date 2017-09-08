@@ -35,11 +35,50 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
 ;; term automatically runs in zsh
-(defun term ()
+(defun termx ()
   (interactive)
   (split-window-below (floor (* 0.8 (window-height))))
   (windmove-down)
   (ansi-term "/bin/zsh")
-  (windmove-up))
+  (turn-off-evil-mode)
+  )
+
+(global-set-key (kbd "C-c t") 'termx)
+
+;; C-c C-j and C-c C-k now TOGGLE term-mode
+(require 'term)
+
+(defun jnm/term-toggle-mode ()
+  "Toggles term between line mode and char mode"
+  (interactive)
+  (if (term-in-line-mode)
+      (gochar)
+    (goin)))
+
+(defun gochar ()
+  "Goes into term-char-mode"
+  (interactive)
+  (term-char-mode)
+  ;; (evil-insert)
+  (end-of-buffer)
+  ;; (comint-send-input)
+  ;; (kill-line)
+  (turn-off-evil-mode)
+  (setq cursor-type 'bar)
+  (delete-backward-char 1 t)
+  )
+
+(defun goin ()
+  (interactive)
+  (term-line-mode)
+  (turn-on-evil-mode)
+  ;; (evil-force-normal-state)
+  )
+
+(define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+
+(define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+(define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
 
 (provide 'functions)
