@@ -7,3 +7,9 @@
 [submodule "zsh/plugins/oh-my-zsh"]
     path = zsh/plugins/oh-my-zsh
     url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "nvim/vim-rtags"]
+	path = nvim/vim-rtags
+	url = https://github.com/lyuts/vim-rtags
+[submodule "nvim/plugged/vim-rtags"]
+	path = nvim/plugged/vim-rtags
+	url = https://github.com/lyuts/vim-rtags
