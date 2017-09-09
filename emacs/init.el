@@ -11,12 +11,17 @@
 (add-to-list 'load-path "~/.emacs.d/settings/") ;; Set path to dependencies
 (add-to-list 'load-path "/usr/texbin") ;; Set path to tex
 
-(getenv "PATH")
- (setenv "PATH"
-(concat
- "/Library/TeX/texbin" ":" ;first string in quotes is the directory (excluding file) given by the CLI command "which latex" https://tex.stackexchange.com/questions/24510/pdflatex-fails-within-emacs-app-but-works-in-terminal
+;;first string in quotes is the directory (excluding file) given by the CLI command "which latex" https://tex.stackexchange.com/questions/24510/pdflatex-fails-within-emacs-app-but-works-in-terminal
 
- (getenv "PATH")))
+(getenv "PATH")
+(setenv "PATH"
+        (concat
+         "/Library/TeX/texbin" ":"
+         "/usr/texbin" ":"
+         "/usr/local/bin" ":"
+         (getenv "PATH")))
+
+(setq preview-gs-command "/usr/local/bin/gs")
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
