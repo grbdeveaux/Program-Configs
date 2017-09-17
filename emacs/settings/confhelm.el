@@ -10,5 +10,8 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-s") 'helm-occur)
 
+(require 'helm-descbinds)
+(helm-descbinds-mode)
+(global-set-key (kbd "C-h b") 'helm-descbinds)
 
 (provide 'confhelm)

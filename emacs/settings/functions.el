@@ -24,12 +24,14 @@
   (interactive)                 ; permit invocation in minibuffer
   ;(insert (format-time-string "%D %-I:%M %p")))
   (insert (format-time-string "%Y-%m-%d %H:%M")))
+  ;; (insert (format-time-string " %d %B %Y")))
 
 (defun today ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
   (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%A, %B %e, %Y")))
+  ;; (insert (format-time-string "%A, %B %e, %Y")))
+  (insert (format-time-string "%d %B %Y")))
 
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)

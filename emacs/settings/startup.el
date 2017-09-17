@@ -26,4 +26,10 @@
 ;; Silence redefinition messages
 (setq ad-redefinition-action 'accept)
 
+(add-hook 'LaTeX-mode-hook (lambda ()
+  (push
+    '("Latexmk" "latexmk -pdflatex='pdflatex -file-line-error -synctex=1' -pdf %s" TeX-run-command nil t
+      :help "Run Latexmk on file")
+    TeX-command-list)))
+
 (provide 'startup)

@@ -32,9 +32,9 @@
 (require 'startup) ;;Start up configuration
 (require 'pacman) ;; Package enables
 (require 'functions)
+(require 'orgman)
 (require 'hydras)
 (require 'confhelm)
 (require 'keybindings)
 (add-hook 'LaTeX-mode-hook(lambda() (require 'textweaks))) ;;Start up configuration
 (require 'tweaks) ;;Start up configuration
-(require 'hooks) ;; Hooks

@@ -14,8 +14,10 @@
                          ("melpa" . "http://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/"))
-             )
+      )
 
+;;Rainbow Delimiters
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Evil leader (SHOULD BE ENABLED BEFORE EVIL MODE)
 (require 'evil-leader)
@@ -47,7 +49,7 @@
   "cv" 'evilnc-toggle-invert-comment-line-by-line
   "."  'evilnc-copy-and-comment-operator
   "\\" 'evilnc-comment-operator ; if you prefer backslash key
-)
+  )
 
 ;;LINUM
 (global-linum-mode 1)
@@ -73,7 +75,7 @@
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets/")
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "<M-tab>") 'yas-expand) ;Shift-Tab to expand yasnippet
+(define-key yas-minor-mode-map (kbd "<M-tab>") 'yas-expand) ;; Alt-Tab to expand yasnippet
 (yas-global-mode 1)
 
 ;;Company
@@ -84,12 +86,12 @@
 
 ;; set default `company-backends'
 (add-to-list 'company-backends
-      '(company-files          ; files & directory
-        company-keywords       ; keywords
-        company-capf
-        company-abbrev
-        company-dabbrev)
-      )
+             '(company-files          ; files & directory
+               company-keywords       ; keywords
+               company-capf
+               company-abbrev
+               company-dabbrev)
+             )
 
 ;; company delay until suggestions are shown
 (setq company-idle-delay 0.0)
@@ -103,9 +105,9 @@
 
 (defun company-mode/backend-with-yas (backend)
   (if (or (not company-mode/enable-yas) (and (listp backend)    (member 'company-yasnippet backend)))
-  backend
-(append (if (consp backend) backend (list backend))
-        '(:with company-yasnippet))))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
 
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 

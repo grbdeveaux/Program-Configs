@@ -36,10 +36,16 @@
 (setq TeX-source-correlate-start-server t)
 (setq TeX-source-correlate-method 'synctex)
 
-(setq TeX-view-program-selection '((output-dvi "Skim")))
-
 (setq TeX-view-program-list
-      '(("Skim" "displayline -b -g %n %o %b")))
+        '(("Okular" "okular --unique %o#src:%n`pwd`/./%b")
+          ("Skim" "displayline -b -g %n %o %b")
+          ("Zathura"
+           ("zathura %o"
+            (mode-io-correlate
+             " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
+
+(setq TeX-view-program-selection '((output-dvi "Skim")))
+(setq TeX-view-program-selection '((output-pdf "Skim")))
 
 (setq TeX-PDF-mode t)
 (setq TeX-interactive-mode t)
@@ -55,9 +61,14 @@
 
 ;; Backwards Search with Skim. Use C-S-Left Mouse Button.
 (server-start)
-;; Auto-raise Emacs on activation
-(defun raise-emacs-on-aqua()
-    (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
-(add-hook 'server-switch-hook 'raise-emacs-on-aqua)
+
+(require 'tex-site)
+
+(add-to-list 'TeX-output-view-style
+             '("^pdf$" "."
+               "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b"))
+
+;; Make emacs aware of multi-file projects
+(setq-default TeX-master nil)
 
 (provide 'textweaks)

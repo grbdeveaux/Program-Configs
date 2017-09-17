@@ -1,40 +1,94 @@
-;;Head Hydra
-(defhydra hydra-main (:color red :hint nil)
+;; ***** HEAD HYDRA *****
+(defhydra hydra-main (:hint nil)
   "
   ^Main^
-  ---------------------------------------------
-  _w_: Window     _o_: Outline    _a_: Applications
-  _m_: Move Text
+  -------------------------------------------------------
+  _w_: Window     _O_: Outline     _a_: Applications
+  _m_: Move Text  _h_: Helm        _o_: Org Mode
+  _u_: Unicode    _y_: YASnippet   _i_: Input Method
   "
   ("a" hydra-applications/body :exit t)
-  ("o" hydra-outline/body :exit t)
+  ("O" hydra-outline/body :exit t)
   ("w" hydra-window/body :exit t)
+  ("o" hydra-org-mode/body :exit t)
   ("m" hydra-move-text/body :exit t)
+  ("h" hydra-helm/body :exit t)
+  ("u" hydra-unicode/body :exit t)
+  ("y" hydra-yasnippet/body :exit t)
+  ("i" hydra-input-method/body :exit t)
   ("SPC" nil "Exit Hydra"))
 
 ;;(evil-define-key 'normal emacs-global-mode-map (kbd "SPC") 'hydra-main/body)
 (define-key evil-normal-state-map (kbd "SPC") 'hydra-main/body)
-(global-set-key (kbd "C-SPC") 'hydra-main/body) ; by example
+(global-set-key (kbd "C-S-SPC") 'hydra-main/body) ; by example
+
+;; ***** toggle-input-method replacement *****
+(defhydra hydra-input-method (:exit t :hint nil)
+  "
+_l_: latin-9-prefix    _t_: TeX
+_i_: IPA               _x_: X-SAMPA
+"
+  ("i" (set-input-method "ipa"))
+  ("x" (set-input-method "ipa-x-sampa"))
+  ("t" (set-input-method "TeX"))
+  ("l" (set-input-method "latin-9-prefix"))
+  ("SPC" nil "Exit Hydra"))
+
+;; ***** YASnippet *****
+(defhydra hydra-yasnippet (:hint nil)
+ "
+^Modes^      ^Load/Visit:^    ^Actions:
+^------------------------------------------
+
+_g_: Global  _d_: Directory    _i_: Insert
+_m_: Minor   _f_: File         _t_: Tryout
+_e_: Extra   _l_: List         _n_: New
+^^           _a_: All
+"
+  ("d" yas-load-directory)
+  ("e" yas-activate-extra-mode)
+  ("i" yas-insert-snippet)
+  ("f" yas-visit-snippet-file :color blue)
+  ("n" yas-new-snippet)
+  ("t" yas-tryout-snippet)
+  ("l" yas-describe-tables)
+  ("g" yas/global-mode)
+  ("m" yas/minor-mode)
+  ("a" yas-reload-all)
+  ("SPC" nil "Exit Hydra"))
+
+;; ***** Org Mode Hydras *****
+
+(defhydra hydra-org-mode (:hint nil)
+  "
+  ^Main^
+  ---------------------------------
+  _c_: Org CLock   _a_: Org Agenda
+  "
+  ("c" hydra-org-clock/body :exit t)
+  ("a" hydra-org-agenda/body :exit t)
+  ("SPC" nil "Exit Hydra"))
 
 ;; ***** Applications *****
 
-(defhydra hydra-applications (:color red :hint nil)
+(defhydra hydra-applications (:hint nil)
   "
   ^Applications
   ^^^^^^---------------------------------------------
   _r_: Ranger     _d_: Dired    _t_: Tetris
 
 "
-  ("r" ranger   :exit t :color blue)
-  ("d" dired    :exit t :color blue)
-  ("t" tetris   :exit t :color blue)
+  ("r" ranger   :exit t)
+  ("d" dired    :exit t)
+  ("t" tetris   :exit t)
   ("SPC" nil "Exit Hydra"))
+
 
 ;; Deluze Window Moving
 (require 'windmove)
 
 (defhydra hydra-window (:hint nil)
-   "
+  "
 Movement^^      ^Split^           ^Switch^          ^Resize^
 -------------------------------------------------------------------
 _h_ ←           _v_ Vertical      _b_ Buffer        _q_ X←
@@ -44,91 +98,55 @@ _l_ →           _Z_ Reset         _s_ Swap          _r_ X→
 _F_ Follow      _D_ Del Others    _S_ Save          _m_ Maximize
 _SPC_ cancel    _o_ Only this     _d_ Delete
 "
-   ("h" windmove-left )
-   ("j" windmove-down )
-   ("k" windmove-up )
-   ("l" windmove-right )
-;;   ("q" hydra-move-splitter-left)
-;;   ("w" hydra-move-splitter-down)
-;;   ("e" hydra-move-splitter-up)
-;;   ("r" hydra-move-splitter-right)
-   ("q" move-border-left) ;move-border is MUCH faster than hydra-move-splitter
-   ("w" move-border-down)
-   ("e" move-border-up)
-   ("r" move-border-right)
-   ("b" helm-mini)
-   ("f" helm-find-files)
-   ("F" follow-mode)
-   ("a" (lambda ()
-          (interactive)
-          (ace-window 1)
-          (add-hook 'ace-window-end-once-hook
-                    'hydra-window/body))
-       )
-   ("v" (lambda ()
-          (interactive)
-          (split-window-right)
-          (windmove-right))
-       )
-   ("x" (lambda ()
-          (interactive)
-          (split-window-below)
-          (windmove-down))
-       )
-   ("s" (lambda ()
-          (interactive)
-          (ace-window 4)
-          (add-hook 'ace-window-end-once-hook
-                    'hydra-window/body)))
-   ("S" save-buffer)
-   ("d" delete-window)
-   ("D" (lambda ()
-          (interactive)
-          (ace-window 16)
-          (add-hook 'ace-window-end-once-hook
-                    'hydra-window/body))
-       )
-   ("o" delete-other-windows)
-   ("m" ace-maximize-window)
-   ("z" (progn
-          (winner-undo)
-          (setq this-command 'winner-undo))
+  ("h" windmove-left )
+  ("j" windmove-down )
+  ("k" windmove-up )
+  ("l" windmove-right )
+  ("q" move-border-left) ;move-border is MUCH faster than hydra-move-splitter
+  ("w" move-border-down)
+  ("e" move-border-up)
+  ("r" move-border-right)
+  ("b" helm-mini)
+  ("f" helm-find-files)
+  ("F" follow-mode)
+  ("a" (lambda ()
+         (interactive)
+         (ace-window 1)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
    )
-   ("Z" winner-redo)
-   ("SPC" nil)
+  ("v" (lambda ()
+         (interactive)
+         (split-window-right)
+         (windmove-right))
    )
-
-(defun hydra-move-splitter-left (arg)
-  "Move window splitter left."
-  (interactive "p")
-  (if (let ((windmove-wrap-around))
-	(windmove-find-other-window 'right))
-      (shrink-window-horizontally arg)
-    (enlarge-window-horizontally arg)))
-
-(defun hydra-move-splitter-right (arg)
-  "Move window splitter right."
-  (interactive "p")
-  (if (let ((windmove-wrap-around))
-	(windmove-find-other-window 'right))
-      (enlarge-window-horizontally arg)
-    (shrink-window-horizontally arg)))
-
-(defun hydra-move-splitter-up (arg)
-  "Move window splitter up."
-  (interactive "p")
-  (if (let ((windmove-wrap-around))
-	(windmove-find-other-window 'up))
-      (enlarge-window arg)
-    (shrink-window arg)))
-
-(defun hydra-move-splitter-down (arg)
-  "Move window splitter down."
-  (interactive "p")
-  (if (let ((windmove-wrap-around))
-	(windmove-find-other-window 'up))
-      (shrink-window arg)
-    (enlarge-window arg)))
+  ("x" (lambda ()
+         (interactive)
+         (split-window-below)
+         (windmove-down))
+   )
+  ("s" (lambda ()
+         (interactive)
+         (ace-window 4)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body)))
+  ("S" save-buffer)
+  ("d" delete-window)
+  ("D" (lambda ()
+         (interactive)
+         (ace-window 16)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
+   )
+  ("o" delete-other-windows)
+  ("m" ace-maximize-window)
+  ("z" (progn
+         (winner-undo)
+         (setq this-command 'winner-undo))
+   )
+  ("Z" winner-redo)
+  ("SPC" nil)
+  )
 
 ;; intuitive window resizing
 (defun xor (b1 b2)
@@ -143,7 +161,7 @@ _SPC_ cancel    _o_ Only this     _d_ Delete
   (let ((left-edge (nth 0 (window-edges))))
     (if (xor (= left-edge 0) dir)
         (shrink-window arg t)
-        (enlarge-window arg t))))
+      (enlarge-window arg t))))
 
 (defun move-border-up-or-down (arg dir)
   "General function covering move-border-up and move-border-down. If DIR is
@@ -153,7 +171,7 @@ _SPC_ cancel    _o_ Only this     _d_ Delete
   (let ((top-edge (nth 1 (window-edges))))
     (if (xor (= top-edge 0) dir)
         (shrink-window arg nil)
-        (enlarge-window arg nil))))
+      (enlarge-window arg nil))))
 
 (defun move-border-left (arg)
   (interactive "P")
@@ -171,21 +189,19 @@ _SPC_ cancel    _o_ Only this     _d_ Delete
   (interactive "P")
   (move-border-up-or-down arg nil))
 
-
 ;; ***** Outline *****
 
-(defhydra hydra-outline (:color pink :hint nil)
+(defhydra hydra-outline (:hint nil)
   "
-  ^Hide^             ^Show^           ^Move
-  ^^^^^^------------------------------------------------------
-  _q_: sublevels     _a_: all         _u_: up
-  _t_: body          _e_: entry       _n_: next visible
-  _o_: other         _i_: children    _p_: previous visible
-  _c_: entry         _k_: branches    _f_: forward same level
-  _l_: leaves        _s_: subtree     _b_: backward same level
-  _d_: subtree
-
-  "
+^Hide^             ^Show^           ^Move
+^^^^^^------------------------------------------------------
+_q_: sublevels     _a_: all         _u_: up
+_t_: body          _e_: entry       _n_: next visible
+_o_: other         _i_: children    _p_: previous visible
+_c_: entry         _k_: branches    _f_: forward same level
+_l_: leaves        _s_: subtree     _b_: backward same level
+_d_: subtree
+"
   ;; Hide
   ("q" hide-sublevels)    ; Hide everything but the top-level headings
   ("t" hide-body)         ; Hide everything but headings (all body lines)
@@ -207,10 +223,188 @@ _SPC_ cancel    _o_ Only this     _d_ Delete
   ("b" outline-backward-same-level)       ; Backward - same level
   ("SPC" nil "Exit Hydra"))
 
+;; ***** Move Text *****
+
 (defhydra hydra-move-text ()
   "Move text"
   ("u" move-text-up "up")
   ("d" move-text-down "down")
+  ("SPC" nil "Exit Hydra"))
+
+;; ***** Helm *****
+
+(defhydra hydra-helm (:hint nil)
+  "
+^Navigation^      ^Other^         ^Sources^        ^Mark^           ^Do^                ^Help
+^--------------------------------------------------------------------------------------------------------
+_h_: Beggining    _K_: Up         _p_: Previous    _m_: Mark        _v_: View           _H_: Helm help
+_j_: Next         _c_: Recenter   _n_: Next        _t_: Toggle all  _d_: Delete         _s_: Source help
+_k_: Previous     _J_: Down       ^ ^              _u_: Unmark all  _f_: Follow: %(helm-attr 'follow)
+_l_: End          ^ ^             ^ ^              ^ ^              _y_: Yank selection
+^ ^               ^ ^             ^ ^              ^ ^              _w_: Toggle windows
+"
+  ("<tab>" helm-keyboard-quit "back" :exit t)
+  ("<escape>" nil "quit")
+  ("\\" (insert "\\") "\\" :color blue)
+  ("h" helm-beginning-of-buffer)
+  ("j" helm-next-line)
+  ("k" helm-previous-line)
+  ("l" helm-end-of-buffer)
+  ("g" helm-beginning-of-buffer)
+  ("G" helm-end-of-buffer)
+  ("n" helm-next-source)
+  ("p" helm-previous-source)
+  ("K" helm-scroll-other-window-down)
+  ("J" helm-scroll-other-window)
+  ("c" helm-recenter-top-bottom-other-window)
+  ("m" helm-toggle-visible-mark)
+  ("t" helm-toggle-all-marks)
+  ("u" helm-unmark-all)
+  ("H" helm-help)
+  ("s" helm-buffer-help)
+  ("v" helm-execute-persistent-action)
+  ("d" helm-persistent-delete-marked)
+  ("y" helm-yank-selection)
+  ("w" helm-toggle-resplit-and-swap-windows)
+  ("f" helm-follow-mode)
+  ("SPC" nil "Exit Hydra"))
+
+
+;; Hydra for org agenda (graciously taken from Spacemacs)
+
+(defhydra hydra-org-agenda (:pre (setq which-key-inhibit t)
+                                 :post (setq which-key-inhibit nil)
+                                 :hint none)
+  "
+Org agenda (_q_uit)
+
+^Clock^      ^Visit entry^              ^Date^             ^Other^
+^-----^----  ^-----------^------------  ^----^-----------  ^-----^---------
+_ci_ in      _SPC_ in other window      _ds_ schedule      _gr_ reload
+_co_ out     _TAB_ & go to location     _dd_ set deadline  _._  go to today
+_cq_ cancel  _RET_ & del other windows  _dt_ timestamp     _gd_ go to date
+_cj_ jump    _o_   link                 _+_  do later      ^^
+^^           ^^                         _-_  do earlier    ^^
+^^           ^^                         ^^                 ^^
+^View^          ^Filter^                 ^Headline^         ^Toggle mode^
+^----^--------  ^------^---------------  ^--------^-------  ^-----------^----
+_vd_ day        _ft_ by tag              _ht_ set status    _tf_ follow
+_vw_ week       _fr_ refine by tag       _hk_ kill          _tl_ log
+_vt_ fortnight  _fc_ by category         _hr_ refile        _ta_ archive trees
+_vm_ month      _fh_ by top headline     _hA_ archive       _tA_ archive files
+_vy_ year       _fx_ by regexp           _h:_ set tags      _tr_ clock report
+_vn_ next span  _fd_ delete all filters  _hp_ set priority  _td_ diaries
+_vp_ prev span  ^^                       ^^                 ^^
+_vr_ reset      ^^                       ^^                 ^^
+^^              ^^                       ^^                 ^^
+"
+  ;; Entry
+  ("hA" org-agenda-archive-default)
+  ("hk" org-agenda-kill)
+  ("hp" org-agenda-priority)
+  ("hr" org-agenda-refile)
+  ("h:" org-agenda-set-tags)
+  ("ht" org-agenda-todo)
+  ;; Visit entry
+  ("o"   link-hint-open-link :exit t)
+  ("<tab>" org-agenda-goto :exit t)
+  ("TAB" org-agenda-goto :exit t)
+  ("SPC" org-agenda-show-and-scroll-up)
+  ("RET" org-agenda-switch-to :exit t)
+  ;; Date
+  ("dt" org-agenda-date-prompt)
+  ("dd" org-agenda-deadline)
+  ("+" org-agenda-do-date-later)
+  ("-" org-agenda-do-date-earlier)
+  ("ds" org-agenda-schedule)
+  ;; View
+  ("vd" org-agenda-day-view)
+  ("vw" org-agenda-week-view)
+  ("vt" org-agenda-fortnight-view)
+  ("vm" org-agenda-month-view)
+  ("vy" org-agenda-year-view)
+  ("vn" org-agenda-later)
+  ("vp" org-agenda-earlier)
+  ("vr" org-agenda-reset-view)
+  ;; Toggle mode
+  ("ta" org-agenda-archives-mode)
+  ("tA" (org-agenda-archives-mode 'files))
+  ("tr" org-agenda-clockreport-mode)
+  ("tf" org-agenda-follow-mode)
+  ("tl" org-agenda-log-mode)
+  ("td" org-agenda-toggle-diary)
+  ;; Filter
+  ("fc" org-agenda-filter-by-category)
+  ("fx" org-agenda-filter-by-regexp)
+  ("ft" org-agenda-filter-by-tag)
+  ("fr" org-agenda-filter-by-tag-refine)
+  ("fh" org-agenda-filter-by-top-headline)
+  ("fd" org-agenda-filter-remove-all)
+  ;; Clock
+  ("cq" org-agenda-clock-cancel)
+  ("cj" org-agenda-clock-goto :exit t)
+  ("ci" org-agenda-clock-in :exit t)
+  ("co" org-agenda-clock-out)
+  ;; Other
+  ("q" nil :exit t)
+  ("gd" org-agenda-goto-date)
+  ("." org-agenda-goto-today)
+  ("gr" org-agenda-redo)
+  ("SPC" nil "Exit Hydra"))
+
+;; ***** Org mode clock and timers
+
+(defhydra hydra-org-clock (:hint nil)
+  "
+^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
+-^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
+(_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
+^ ^      _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
+^ ^      _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
+^ ^      ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
+"
+   ("i" org-clock-in)
+   ("c" org-clock-in-last)
+   ("o" org-clock-out)
+
+   ("e" org-clock-modify-effort-estimate)
+   ("q" org-clock-cancel)
+
+   ("g" org-clock-goto)
+   ("d" org-clock-display)
+   ("r" org-clock-report)
+   ("?" (org-info "Clocking commands"))
+
+  ("r" org-timer-start)
+  ("n" org-timer-set-timer)
+  ("p" org-timer-pause-or-continue)
+  ("s" org-timer-stop)
+
+  ("m" org-timer)
+  ("t" org-timer-item)
+  ("z" (org-info "Timers"))
+  ("SPC" nil "Exit Hydra"))
+
+
+;; ***** Insert Unicode Characters *****
+
+(defun my/insert-unicode (unicode-name)
+  "Same as C-x 8 enter UNICODE-NAME."
+  (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
+
+(defhydra hydra-unicode (:hint nil)
+  "
+Unicode  _e_ €  _s_ ZERO WIDTH SPACE
+_f_ ♀  _o_ °   _m_ µ
+_r_ ♂  _a_ →
+"
+  ("e" (my/insert-unicode "EURO SIGN"))
+  ("r" (my/insert-unicode "MALE SIGN"))
+  ("f" (my/insert-unicode "FEMALE SIGN"))
+  ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
+  ("o" (my/insert-unicode "DEGREE SIGN"))
+  ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
+  ("m" (my/insert-unicode "MICRO SIGN"))
   ("SPC" nil "Exit Hydra"))
 
 (provide 'hydras)
