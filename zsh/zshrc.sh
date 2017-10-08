@@ -1,27 +1,16 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+## Path to your oh-my-zsh installation.
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
 # Vars
     HISTFILE=~/.zsh_history
     SAVEHIST=100
     setopt inc_append_history # To save every command before it is executed
     setopt share_history # setopt inc_append_history
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="ys"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
 
 #So tmux supports powerline colors?
 export TERM="xterm-256color"
@@ -74,17 +63,13 @@ fi
 
 source ~/dotfiles/zsh/prompt.sh
 
-
 # Jump to journal
 function jr()
 {
     builtin cd ~/Dropbox/Journal/20$1 && ls -Gf
 }
 
-# Removed because emacs doesn't recognize the tmux command natively.
-# It's also a dumb feature.
-## Open tmux if it's not already running
-#if [ -z "$TMUX" ]
-#then
-#  tmux
-#fi
+# Android Debug Bridge
+if [ -d "$HOME/adb-fastboot/" ] ; then
+     export PATH="$HOME/adb-fastboot/:$PATH"
+fi

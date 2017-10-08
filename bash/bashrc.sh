@@ -8,7 +8,7 @@ source ~/dotfiles/bash/bashrc_aliases.sh
 export TERM="xterm-256color"
 
 #######################################################
-# SOURCED ALIAS'S AND SCRIPTS
+# SOURCED ALIASES AND SCRIPTS
 #######################################################
 
 # Source global definitions
@@ -68,7 +68,7 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 #######################################################
-# MACHINE SPECIFIC ALIAS'S
+# MACHINE SPECIFIC ALIASES
 #######################################################
 
 # Alias's to change the directory
@@ -494,8 +494,5 @@ PROMPT_COMMAND='__setprompt'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"         # This loads RVM into a shell session.
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion # This sets RVM shell completion
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

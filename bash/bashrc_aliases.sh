@@ -4,9 +4,9 @@ function cd()
 }
 
 #######################################################
-# GENERAL ALIAS'S
+# GENERAL ALIASES
 #######################################################
-# To temporarily bypass an alias, we preceed the command with a \
+# To temporarily bypass an alias, preceed the command with a \
 # EG: the ls command is aliased, but to use the normal ls command you would type \ls
 
 
@@ -104,4 +104,3 @@ alias sha1='openssl sha1'
 
 alias ebrc='vim ~/.bashrc'
 alias updatebrc='source ~/.bashrc'
-
