@@ -14,10 +14,6 @@
 ;; Delete Trailing Whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Always show matching parentheses
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-
 ;; Only visually wrap lines between words
 ;; (global-visual-line-mode t)
 (setq-default word-wrap t)

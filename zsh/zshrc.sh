@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 ## Path to your oh-my-zsh installation.
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
 plugins=(git)
@@ -23,11 +20,6 @@ function cd()
 {
     builtin cd "$*" && ls -Gf
 }
-
-
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
@@ -68,8 +60,3 @@ function jr()
 {
     builtin cd ~/Dropbox/Journal/20$1 && ls -Gf
 }
-
-# Android Debug Bridge
-if [ -d "$HOME/adb-fastboot/" ] ; then
-     export PATH="$HOME/adb-fastboot/:$PATH"
-fi

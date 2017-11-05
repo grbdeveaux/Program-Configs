@@ -110,6 +110,7 @@ if echo "$answer" | grep -iq "^y" ;then
     make_backup ~/.vimrc
     make_backup ~/.zshrc
     make_backup ~/.tmux
+    make_backup ~/.spacemacs
 else
     echo "\nNot backing up old dotfiles."
 fi
@@ -129,6 +130,7 @@ if echo "$answer" | grep -iq "^y" ;then
     ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
     ln -s ~/dotfiles/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
     ln -s ~/dotfiles/tmux ~/.tmux
+    ln -s ~/dotfiles/emacs/spacemacs ~/.spacemacs
 else
     echo "\nNot creating symlinks."
 fi

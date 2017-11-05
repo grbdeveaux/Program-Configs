@@ -21,7 +21,6 @@
 
 ;; yasnippet code 'optional', before auto-complete
 (require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/dotfiles/emacs/snippets/")
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "<M-tab>") 'yas-expand) ;; Alt-Tab to expand yasnippet

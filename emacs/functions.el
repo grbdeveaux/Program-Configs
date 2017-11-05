@@ -37,7 +37,7 @@ e.g. Sunday, September 17, 2000."
 (global-set-key (kbd "M-<down>") 'move-line-down)
 
 ;; term automatically runs in zsh
-(defun termx ()
+(defun tempterm ()
   (interactive)
   (split-window-below (floor (* 0.8 (window-height))))
   (windmove-down)
@@ -45,7 +45,7 @@ e.g. Sunday, September 17, 2000."
   (turn-off-evil-mode)
   )
 
-(global-set-key (kbd "C-c t") 'termx)
+(global-set-key (kbd "C-c t") 'tempterm)
 
 ;; C-c C-j and C-c C-k now TOGGLE term-mode
 (require 'term)
@@ -76,10 +76,10 @@ e.g. Sunday, September 17, 2000."
   ;; (evil-force-normal-state)
   )
 
-(define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
-(define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+;; (define-key term-mode-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+;; (define-key term-mode-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
 
-(define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
-(define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
+;; (define-key term-raw-map (kbd "C-c C-j") 'jnm/term-toggle-mode)
+;; (define-key term-raw-map (kbd "C-c C-k") 'jnm/term-toggle-mode)
 
 (provide 'functions)
