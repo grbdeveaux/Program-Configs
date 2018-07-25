@@ -1,6 +1,9 @@
 ## Path to your oh-my-zsh installation.
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
-plugins=(git)
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # Vars
@@ -31,14 +34,6 @@ git config --global core.editor /usr/bin/vim
 # For vim mappings:
 stty -ixon
 
-source ~/dotfiles/zsh/plugins/oh-my-zsh/lib/history.zsh
-source ~/dotfiles/zsh/plugins/oh-my-zsh/lib/key-bindings.zsh
-source ~/dotfiles/zsh/plugins/oh-my-zsh/lib/completion.zsh
-source ~/dotfiles/zsh/plugins/vi-mode.plugin.zsh
-source ~/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/dotfiles/zsh/keybindings.sh
-
 # Fix for arrow-key searching
 # start typing + [Up-Arrow] - fuzzy find history forward
 if [[ "${terminfo[kcuu1]}" != "" ]]; then
@@ -52,11 +47,3 @@ if [[ "${terminfo[kcud1]}" != "" ]]; then
     zle -N down-line-or-beginning-search
     bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
-
-source ~/dotfiles/zsh/prompt.sh
-
-# Jump to journal
-function jr()
-{
-    builtin cd ~/Dropbox/Journal/20$1 && ls -Gf
-}
