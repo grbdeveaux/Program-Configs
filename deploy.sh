@@ -122,15 +122,15 @@ answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg
 if echo "$answer" | grep -iq "^y" ;then
     echo "\nCreating symlinks to new configurations."
-    ln -s ~/dotfiles/vim ~/.vim
-    ln -s ~/dotfiles/vim/.vimrc ~/.vimrc
-    ln -s ~/dotfiles/nvim ~/.config/nvim
-    ln -s ~/dotfiles/bash/bashrc.sh ~/.bashrc
-    ln -s ~/dotfiles/zsh/zshrc_manager.sh ~/.zshrc
-    ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
-    ln -s ~/dotfiles/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
-    ln -s ~/dotfiles/tmux ~/.tmux
-    ln -s ~/dotfiles/emacs/spacemacs ~/.spacemacs
+    ln -s ~/Documents/GitHub/dotfiles/vim ~/.vim
+    ln -s ~/Documents/GitHub/dotfiles/vim/.vimrc ~/.vimrc
+    ln -s ~/Documents/GitHub/dotfiles/nvim ~/.config/nvim
+    ln -s ~/Documents/GitHub/dotfiles/bash/bashrc.sh ~/.bashrc
+    ln -s ~/Documents/GitHub/dotfiles/zsh/zshrc_manager.sh ~/.zshrc
+    ln -s ~/Documents/GitHub/dotfiles/tmux/tmux.conf ~/.tmux.conf
+    ln -s ~/Documents/GitHub/dotfiles/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
+    ln -s ~/Documents/GitHub/dotfiles/tmux ~/.tmux
+    ln -s ~/Documents/GitHub/dotfiles/emacs/spacemacs ~/.spacemacs
 else
     echo "\nNot creating symlinks."
 fi
