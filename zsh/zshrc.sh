@@ -1,9 +1,15 @@
 ## Path to your oh-my-zsh installation.
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
+
+ZSH_THEME="spaceship"
+
 plugins=(
     git
     zsh-autosuggestions
-    zsh-syntax-highlighting)
+    zsh-syntax-highlighting
+    fzf-zsh)
+
+
 source $ZSH/oh-my-zsh.sh
 
 # Vars
@@ -14,7 +20,6 @@ source $ZSH/oh-my-zsh.sh
 
 #So tmux supports powerline colors?
 export TERM="xterm-256color"
-
 
 #Functions
 
