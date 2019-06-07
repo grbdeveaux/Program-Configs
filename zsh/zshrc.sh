@@ -6,8 +6,7 @@ ZSH_THEME="spaceship"
 plugins=(
     git
     zsh-autosuggestions
-    zsh-syntax-highlighting
-    fzf-zsh)
+    zsh-syntax-highlighting)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -30,8 +29,6 @@ function cd()
 }
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Set vim as default git editor
 git config --global core.editor /usr/bin/vim
