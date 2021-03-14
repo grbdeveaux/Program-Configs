@@ -14,6 +14,7 @@ plugins=(
     colored-man-pages
     colorize
     dirhistory
+    fzf
     )
 
 
@@ -210,3 +211,9 @@ alias plz='sudo'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# FZF 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+## CTRL-T - Paste the selected files and directories onto the command-line
+## CTRL-R - Paste the selected command from history onto the command-line
+## ALT-C - cd into the selected directory
