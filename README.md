@@ -3,7 +3,9 @@ Config files for various programs.
 
 # Z shell
 
-## macOS
+## Installation
+
+### macOS
 
 Symlink configs to ~:
 
@@ -13,5 +15,10 @@ Symlink configs to ~:
 
 `ln -s /path/to/latexmkrc ~/.latexmkrc`
 
-## Manjaro
+### Manjaro
 
+## Config
+
+### Oh my zsh
+
+### Powerline10k
