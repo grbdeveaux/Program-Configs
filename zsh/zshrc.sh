@@ -9,7 +9,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     git
     zsh-autosuggestions
-    zsh-syntax-highlighting)
+    zsh-syntax-highlighting
+    archlinux
+    colored-man-pages
+    colorize
+    dirhistory
+    )
 
 
 source $ZSH/oh-my-zsh.sh
