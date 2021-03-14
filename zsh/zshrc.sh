@@ -15,6 +15,7 @@ plugins=(
     colorize
     dirhistory
     fzf
+    thefuck
     )
 
 
