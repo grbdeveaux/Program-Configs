@@ -22,3 +22,5 @@ Symlink configs to ~:
 ### Oh my zsh
 
 ### Powerline10k
+
+### fzf
