@@ -97,7 +97,7 @@ alias bd='cd "$OLDPWD"'
 alias rmd='/bin/rm  --recursive --force --verbose '
 
 # Alias's for multiple directory listing commands
-alias la='ls -Alh' # show hidden files
+alias la='ls -Ah' # show hidden files
 alias lf='ls -aFh' # file type extensions
 alias lx='ls -lXBh' # sort by extension
 alias lk='ls -lSrh' # sort by size
@@ -188,9 +188,17 @@ bindkey "gpp" git_prepare
     zle -N add_sudo
     bindkey "^s" add_sudo
 
+# Miscellaneous Disordered
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 PATH="/Users/grbdeveaux/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/grbdeveaux/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/Users/grbdeveaux/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/grbdeveaux/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/grbdeveaux/perl5"; export PERL_MM_OPT;
+export PATH="/usr/local/opt/texinfo/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/qt@5/bin:$PATH"
+eval $(thefuck --alias)
+alias gah='fuck'
+alias plz='sudo'
