@@ -7,7 +7,7 @@ Config files for various programs.
 
 Symlink .zshrc to ~/ directory:
 
-ln -s /path/to/.zshrc ~/.zshrc
+`ln -s /path/to/.zshrc ~/.zshrc`
 
 ## Manjaro
 
