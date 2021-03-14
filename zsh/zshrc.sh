@@ -4,7 +4,7 @@ time_out () { perl -e 'alarm shift; exec @ARGV' "$@"; }
 ## Path to your oh-my-zsh installation.
 export ZSH=/Users/grbdeveaux/.oh-my-zsh
 
-ZSH_THEME="spaceship"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
     git
@@ -202,3 +202,6 @@ export PATH="/usr/local/opt/qt@5/bin:$PATH"
 eval $(thefuck --alias)
 alias gah='fuck'
 alias plz='sudo'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
